@@ -13,13 +13,22 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.13",
     "eslint-config-custom": "*",
+    "postcss": "^8.4.18",
     "prettier": "latest",
+    "tailwindcss": "^3.2.3",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13"
+  },
   "packageManager": "npm@8.19.2"
 }
