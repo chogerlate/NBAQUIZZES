@@ -30,6 +30,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.13",
+    "mysql2": "^2.3.3",
     "react-router-dom": "^6.4.3"
   },
   "packageManager": "npm@8.19.2"

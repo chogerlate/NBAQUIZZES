@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import Button from "@mui/material/Button";
@@ -12,8 +12,14 @@ import Layout from "./pages/Layout";
 import Navbar from "./components/Navbar";
 import Quiz from "./components/Quiz.jsx";
 import { QuizProvider } from "./contexts/quiz.jsx";
+import axios from "axios"
 
 export default function App() {
+  {/*useEffect(()=>{
+    axios.get("http://localhost:3008/nba_player").then(response =>{
+      console.log(response.data[0]);
+    })
+  },[])}*/
   return (
     <>
       <QuizProvider>
