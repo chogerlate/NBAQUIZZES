@@ -15,11 +15,12 @@ import { QuizProvider } from "./contexts/quiz.jsx";
 import axios from "axios"
 
 export default function App() {
-  {/*useEffect(()=>{
-    axios.get("http://localhost:3008/nba_player").then(response =>{
-      console.log(response.data[0]);
+  useEffect(()=>{
+    const quizAmount = 5;
+    axios.get("http://localhost:3008/quiz_question",{params:{quizAmount}}).then(response =>{
+      console.log(response.data);
     })
-  },[])}*/
+  },[]);
   return (
     <>
       <QuizProvider>
