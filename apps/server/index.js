@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
-const cors = require("cors");const { json } = require("express");
+const cors = require("cors"); const { json } = require("express");
 ;
 
 app.use(cors());
@@ -14,26 +14,26 @@ const db = mysql.createConnection({
     user: 'wy26e4zi1loz8tt3',
     password: 'zqywhctc0gyll5j1',
     database: 'd6zyum8s6qpze3jj'
-  });
+});
 
-app.get("/nba_player",(req,res,next)=>{
-    db.query("SELECT * FROM `nba_player_info`",(err,results)=>{
+app.get("/nba_player", (req, res, next) => {
+    db.query("SELECT * FROM `nba_player_info`", (err, results) => {
         res.json(results);
     })
 });
 
-app.get("/generel_question",(req,res,next)=>{
-    db.query("SELECT * FROM `question_general`",(err,results)=>{
+app.get("/generel_question", (req, res, next) => {
+    db.query("SELECT * FROM `question_general`", (err, results) => {
         res.json(results);
     })
 });
 
-function getQuizFromTable(){
+function getQuizFromTable() {
     var myArray = new Array(1);
-    db.query(`SELECT * FROM question_general WHERE id = ${1}`,(err,results)=>{
+    db.query(`SELECT * FROM question_general WHERE id = ${1}`, (err, results) => {
         getDataFromTable = JSON.stringify(results)
         myArray[0] = getDataFromTable;
-        console.log("test: "+myArray);
+        console.log("test: " + myArray);
         return myArray;
     })
 }
@@ -42,30 +42,48 @@ function getQuizFromTable(){
 /// Type 2 = easy question
 /// Type 3 = hard question
 /// Type 4 = bigfan question
-app.get("/quiz_question",(req,res,next)=>{
+async function TurnBackValue(res,questionType) {
+    const data = await getFromTable(res,questionType);
+    await PrintData(data);
+}
+function PrintData(data){
+    ///console.log(data);
+}
+function getFromTable(res,questionType) {
+    let randomId = randomQuestionType = Math.floor(Math.random() * 10) + 1;
+    if(questionType==1){
+        db.query(`SELECT * FROM question_general WHERE id = ${randomQuestionType}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(questionType==2){
+        db.query(`SELECT * FROM question_easy WHERE id = ${randomQuestionType}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(questionType==3){
+        db.query(`SELECT * FROM question_hard WHERE id = ${randomQuestionType}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(questionType==4){
+        db.query(`SELECT * FROM question_bigfan WHERE id = ${randomQuestionType}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    
+}
+app.get("/quiz_question", (req, res, next) => {
     const quizAmount = req.query["quizAmount"];
     let randomQuestionType = 0;
-    var quizPocket = new Array(quizAmount);
-    var getDataFromTable = [];
-    let i = 0;
-    for(i = 0;i<quizAmount;i++){
-        quizPocket[i] = randomQuestionType = Math.floor(Math.random() * 4) + 1;
-    }
-    console.log(quizPocket);
-    for(i = 0;i<quizAmount;i++){
-        if(quizPocket[i] == 1){
-            db.query(`SELECT * FROM question_general WHERE id = ${1}`,(err,results)=>{
-            quizPocket[i] = JSON.stringify(results);
-            console.log(quizPocket);
-        })
-        }
-    }
-    console.log("TEST:" + quizPocket);
-    ///db.query(`SELECT * FROM question_general WHERE id = ${1}`,(err,results)=>{
-       /// quizPocket.push(JSON.stringify(results));
-    ///})
-    ///console.log("HELLO HEY --- >", quizPocket)
+    randomQuestionType = Math.floor(Math.random() * 4) + 1;
+    TurnBackValue(res,randomQuestionType);
+    console.log("SUCCESS");
 });
-app.listen("3008", ()=>{
+app.listen("3008", () => {
     console.log("HELLO SERVER");
 });
