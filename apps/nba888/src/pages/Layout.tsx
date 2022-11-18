@@ -1,13 +1,14 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const Layout = () => {
   return (
-    <div className="fixheight">
+    <Box sx={{display:"flex",flexDirection:"column"}}>
       <Navbar />
       <Outlet />
-    </div>
+    </Box>
   );
 };
 
