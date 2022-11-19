@@ -18,14 +18,7 @@ const StyledToolbar = styled(Toolbar)({
   flexDirection:"column"
 })
 
-const NavbarButton = styled(Button)(({ theme }) => ({
-  marginLeft: "30px",
-  color: "#023E8A",
-  borderRadius: "8px",
-  "&:hover": {
-    backgroundColor: "#EEF1FF"
-  },
-}));
+
 function ResponsiveAppBar() {
   const classes = useStyles();
   return (
