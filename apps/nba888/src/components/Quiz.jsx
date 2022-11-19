@@ -8,13 +8,23 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto",
     alignSelft: "center",
-    backgroundColor:"white"
-},
+    backgroundColor: "white"
+  },
   Logo: {
     width: "240px",
     marginLeft: "auto",
     marginRight: "auto",
     padding: "0 10px"
+  },
+  quizImage: {
+    width: "600px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    alignSelft: "center",
+    borderRadius: "10px",
+    ['@media (max-width:1535px)']: {
+      width: "450px"
+    },
   }
 })
 
@@ -24,9 +34,9 @@ const Quiz = () => {
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
 
-  function OnStart(){
+  function OnStart() {
     getQuiz();
-    setTimeout(function() {
+    setTimeout(function () {
       setIscanStart(true);
     }, 7000);
   }
@@ -56,33 +66,65 @@ const Quiz = () => {
     if (answer == solution) {
       setScore(score + 1);
     }
-    NextQuiz();
+    setTimeout(function () {
+      NextQuiz();
+    }, 1000);
   }
 
-  const [isCanStart,setIscanStart] = useState(false);
+  const [isCanStart, setIscanStart] = useState(false);
 
   const classes = useStyles();
   return (
-    <Box sx={{width: "100%"}}>
+    <Box sx={{ width: "100%" }}>
       <Grid container className={classes.container} sx={{
-        width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" },padding:"20px",borderRadius:"20px"
+        width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" }, padding: "20px", borderRadius: "20px"
+        , height: isCanStart ? "100%" : "70vh", position: "relative"
+        , boxShadow: "white 0px 4px 8px"
       }}>
-        <Grid item xl={12} lg={12} md={12}>
-        <Typography sx={{fontSize:"24px",textAlign:"center"}}>SCORE: {score}</Typography>
-        {quiz.length>0 && isCanStart==true ?<Typography sx={{fontSize:"24px",textAlign:"center"}}>{quizIndex+1}/{quiz.length}</Typography>:""}
-        </Grid>
-      <Grid item xl={12} lg={12} md={12}>
-      <Button variant="outlined" sx={{padding:"10px 20px"}} onClick={OnStart}>START</Button>
-      </Grid>
-          {quiz.length>0 && isCanStart==true ? 
-          <Grid item xl={12} lg={12} md={12}>
-          <Typography sx={{fontSize:"24px"}}>{quiz[quizIndex].question}</Typography>
-          <img src={quiz[quizIndex].image_url}/>
-          <Typography sx={{fontSize:"20px"}} onClick={()=>{OnQuizSubmitAnswer(quiz[quizIndex].choice_1)}}>{quiz[quizIndex].choice_1}</Typography>
-          <Typography sx={{fontSize:"20px"}} onClick={()=>{OnQuizSubmitAnswer(quiz[quizIndex].choice_2)}}>{quiz[quizIndex].choice_2}</Typography>
-          <Typography sx={{fontSize:"20px"}} onClick={()=>{OnQuizSubmitAnswer(quiz[quizIndex].choice_3)}}>{quiz[quizIndex].choice_3}</Typography>
-          <Typography sx={{fontSize:"20px"}} onClick={()=>{OnQuizSubmitAnswer(quiz[quizIndex].choice_4)}}>{quiz[quizIndex].choice_4}</Typography>
-        </Grid>:<div>HELLO</div>}
+        {quiz.length < 1 && isCanStart == false ? <Grid item xl={12} lg={12} md={12}>
+          <Button variant="outlined" sx={{ padding: "10px 20px" }} onClick={OnStart}>START</Button>
+        </Grid> : ""}
+        {quiz.length > 0 && isCanStart == true ?
+          <Grid item xl={12} lg={12} md={12} sx={{ width: "100%" }}>
+            {quiz.length > 0 && isCanStart == true ? <Typography sx={{ fontSize: "24px", textAlign: "center", position: "absolute", top: "10px", right: "20px" }}>{quizIndex + 1}/{quiz.length}</Typography> : ""}
+            <Grid container sx={{ width: "100%", textAlign: "center" }}>
+              <Grid item xl={12} lg={12} md={12} sx={{ width: "100%", borderRadius: "20px 20px 0 0", borderBottom: "1px solid #E5E4E2", padding: "0 0 10px 0" }}>
+                <Typography sx={{ fontSize: "24px", textAlign: "center" }}>
+                  {quizIndex + 1}.) {quiz[quizIndex].question}
+                </Typography>
+              </Grid>
+              <Grid item xl={12} lg={12} md={12} sx={{ width: "100%", marginTop: "30px" }}>
+                <img src={quiz[quizIndex].image_url} className={classes.quizImage} />
+              </Grid>
+              <Grid container sx={{ width: "100%", marginTop: "20px" }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px"}} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_1) }}>
+                  <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center"
+                  , alignItems: "center" ,border:"1px solid #7743DB" ,borderRadius:"10px" }}>
+                    <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_1}</Typography>
+                  </Box>
+                </Grid>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_2) }}>
+                  <Box sx={{ width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
+                  , alignItems: "center",border:"1px solid #7743DB" ,borderRadius:"10px" }}>
+                    <Typography sx={{ fontSize: "24px", color: "black"}}>{quiz[quizIndex].choice_2}</Typography>
+                  </Box>
+                </Grid>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_3) }}>
+                  <Box sx={{ width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
+                  , alignItems: "center" ,border:"1px solid #7743DB" ,borderRadius:"10px" }}>
+                    <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_3}</Typography>
+                  </Box>
+                </Grid>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_4) }}>
+                  <Box sx={{ width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
+                  , alignItems: "center",border:"1px solid #7743DB" ,borderRadius:"10px" }}>
+                    <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_4}</Typography>
+                  </Box>
+                </Grid>
+
+              </Grid>
+            </Grid>
+          </Grid> : ""}
       </Grid>
     </Box>
   )
