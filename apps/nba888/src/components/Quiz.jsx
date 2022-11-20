@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu, Grid, TextField ,InputBase} from "@mui/material";
+import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu, Grid, TextField, InputBase } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import UserContext from "../App"
+import {UserContext} from "../App"
 import axios from "axios"
 const useStyles = makeStyles({
   container: {
@@ -27,12 +27,12 @@ const useStyles = makeStyles({
       width: "450px"
     },
   },
-  playerProfileImage:{
-    marginTop:"10px",
-    width:"100px",
-    borderRadius:"50%",
-    marginLeft:"auto",
-    marginRight:"auto",
+  playerProfileImage: {
+    marginTop: "10px",
+    width: "100px",
+    borderRadius: "50%",
+    marginLeft: "auto",
+    marginRight: "auto",
     ['@media (max-width:1535px)']: {
       width: "75px"
     },
@@ -57,10 +57,10 @@ const SubmitNameButton = styled(Button)(({ theme }) => ({
   border: "2px solid #FFD372",
   borderRadius: "0 20px 20px 0",
   padding: "10px 20px",
-  backgroundColor:"#FFD372",
+  backgroundColor: "#FFD372",
   "&:hover": {
-    backgroundColor:"#FFD374",
-    color:"	#36454F"
+    backgroundColor: "#FFD374",
+    color: "	#36454F"
   },
 }));
 
@@ -69,8 +69,8 @@ const Quiz = () => {
   ])
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [quizAmount,setQuizAmount] = useState(10);
-
+  const [quizAmount, setQuizAmount] = useState(10);
+  const {playerName,setPlayerName} = useContext(UserContext)
   function OnStart() {
     getQuiz();
     setTimeout(function () {
@@ -84,7 +84,7 @@ const Quiz = () => {
   function FetchQuiz() {
     const quizAmount = 5;
     for (let i = 0; i < quizAmount; i++) {
-      axios.get("http://localhost:3008/quiz_question", { params: { quizAmount} }).then(response => {
+      axios.get("http://localhost:3008/quiz_question", { params: { quizAmount } }).then(response => {
         setQuiz(quiz => [...quiz, response.data])
       })
     }
@@ -107,25 +107,21 @@ const Quiz = () => {
       NextQuiz();
     }, 1000);
   }
-  
-
-  const playerName = useContext(UserContext);
-  function handleQuizAmount(e){
-    const number = ParseInt(e.target.value);
-    setPlayerName(number);
+  function SubmitPlayerName() {
+    localStorage.setItem("playerName", playerNameChanging);
+    setPlayerName(playerNameChanging);
   }
-  function SubmitPlayerName(){
-    console.log("HEY: "+playerName)
-    localStorage.setItem("playerName",playerName);
-  }
-  function HandlePlayerName(e){
-    console.log(e.target.value)
-    playerName = e.target.value;
+  const [playerNameChanging, setPlayerNameChanging] = useState("");
+  function HandlePlayerName(e) {
+    setPlayerNameChanging(e.target.value);
   }
   const [isCanStart, setIscanStart] = useState(false);
-  
+  useEffect(() => {
+    setPlayerNameChanging(window.localStorage.getItem("playerName"));
+  }, [])
   const classes = useStyles();
-  
+
+
   return (
     <Box sx={{ width: "100%" }}>
       <Grid container className={classes.container} sx={{
@@ -138,41 +134,49 @@ const Quiz = () => {
             <Typography sx={{ fontSize: "30px", textAlign: "center" }}>ไหนดูซิว่าคุณมีความรู้เกี่ยวกับ NBA มากแค่ไหน 🏀</Typography>
           </Grid> : ""}
         {quiz.length < 1 && isCanStart == false ?
-          <Grid item xl={6} lg={6} md={6} sx={{ borderRight: "2px solid #DCDCDC", padding: "10px", height: "60vh"}}>
-            <Typography sx={{fontSize:"20px",textAlign:"center",color:"#0008C1"}}>เล่นเลย!</Typography>
+          <Grid item xl={6} lg={6} md={6} sx={{ borderRight: "2px solid #DCDCDC", padding: "10px", height: "60vh" }}>
+            <Typography sx={{ fontSize: "20px", textAlign: "center", color: "#0008C1" }}>เล่นเลย!</Typography>
 
             <Box>
-              <img src="" className={classes.playerProfileImage}/>
+              <img src="" className={classes.playerProfileImage} />
             </Box>
-            <Typography sx={{fontSize:"20px",textAlign:"left",color:"#0008C1"}}>ชื่อเล่น</Typography>
-            <Box sx={{ display: "flex" ,marginTop:"5px"}}>
-              <InputBase sx={{width:"75%",backgroundColor:"red",border:"2px solid #FFD372"
-              ,backgroundColor:"rgba(255, 211, 114,0.25)",padding:"10px 20px",fontSize:"20px"
-              ,borderRadius:"20px 0 0 20px",color:"#808080"}} onChange={HandlePlayerName} value={playerName}  placeholder="ระบุชื่อเล่น"/>
+            <Typography sx={{ fontSize: "20px", textAlign: "left", color: "#0008C1" }}>ชื่อเล่น</Typography>
+            <Box sx={{ display: "flex", marginTop: "5px" }}>
+              <InputBase sx={{
+                width: "75%", backgroundColor: "red", border: "2px solid #FFD372"
+                , backgroundColor: "rgba(255, 211, 114,0.25)", padding: "10px 20px", fontSize: "20px"
+                , borderRadius: "20px 0 0 20px", color: "#808080"
+              }} onChange={HandlePlayerName} value={playerNameChanging} placeholder={playerName.length > 0 ? `${playerName}`: "ระบุชื่อเล่น"} />
               <SubmitNameButton onClick={SubmitPlayerName}>บันทึก</SubmitNameButton>
             </Box>
-            <Typography sx={{fontSize:"20px",textAlign:"left",color:"#0008C1",marginTop:"20px"}}>จำนวนข้อ</Typography>
-            <Box sx={{ display: "flex",marginTop:"5px"}}>
-              <InputBase sx={{width:"50%",backgroundColor:"red",border:"2px solid #FFD372"
-              ,backgroundColor:"rgba(255, 211, 114,0.25)",padding:"10px 20px",fontSize:"20px"
-              ,borderRadius:"20px 0 0 20px",color:"#808080"}} value={quizAmount} placeholder={`${quizAmount} ข้อ`}/>
-              <SubmitNameButton sx={{borderRadius:"0",fontSize:"20px"
-              ,backgroundColor:quizAmount>5 ?"":"#E5E4E2",border:quizAmount>5 ?"":"1px solid #E5E4E2","&:hover":{
-                border: quizAmount>5 ?"":"1px solid #E5E4E2",
-                backgroundColor:quizAmount>5 ?"":"#E5E4E2"
-              }}} 
-              onClick={()=>{
-                if(quizAmount>5){
-                  setQuizAmount(amount => amount-1)
+            <Typography sx={{ fontSize: "20px", textAlign: "left", color: "#0008C1", marginTop: "20px" }}>จำนวนข้อ</Typography>
+            <Box sx={{ display: "flex", marginTop: "5px" }}>
+              <InputBase sx={{
+                width: "50%", backgroundColor: "red", border: "2px solid #FFD372"
+                , backgroundColor: "rgba(255, 211, 114,0.25)", padding: "10px 20px", fontSize: "20px"
+                , borderRadius: "20px 0 0 20px", color: "#808080"
+              }} value={quizAmount} placeholder={`${quizAmount} ข้อ`} />
+              <SubmitNameButton sx={{
+                borderRadius: "0", fontSize: "20px"
+                , backgroundColor: quizAmount > 5 ? "" : "#E5E4E2", border: quizAmount > 5 ? "" : "1px solid #E5E4E2", "&:hover": {
+                  border: quizAmount > 5 ? "" : "1px solid #E5E4E2",
+                  backgroundColor: quizAmount > 5 ? "" : "#E5E4E2"
                 }
-              }}>-</SubmitNameButton>
-              <SubmitNameButton sx={{fontSize:"20px",borderLeft:"1px solid white",backgroundColor:quizAmount<15 ?"":"#E5E4E2"
-              ,border:quizAmount<15 ?"":"1px solid #E5E4E2","&:hover":{
-                border: quizAmount<15 ?"":"1px solid #E5E4E2",
-                backgroundColor:quizAmount<15 ?"":"#E5E4E2"
-              }}} onClick={()=>{
-                if(quizAmount<15){
-                  setQuizAmount(amount => amount+1)
+              }}
+                onClick={() => {
+                  if (quizAmount > 5) {
+                    setQuizAmount(amount => amount - 1)
+                  }
+                }}>-</SubmitNameButton>
+              <SubmitNameButton sx={{
+                fontSize: "20px", borderLeft: "1px solid white", backgroundColor: quizAmount < 15 ? "" : "#E5E4E2"
+                , border: quizAmount < 15 ? "" : "1px solid #E5E4E2", "&:hover": {
+                  border: quizAmount < 15 ? "" : "1px solid #E5E4E2",
+                  backgroundColor: quizAmount < 15 ? "" : "#E5E4E2"
+                }
+              }} onClick={() => {
+                if (quizAmount < 15) {
+                  setQuizAmount(amount => amount + 1)
                 }
               }}>+</SubmitNameButton>
             </Box>
@@ -180,15 +184,15 @@ const Quiz = () => {
               <CustomButton variant="outlined" sx={{ padding: "10px 30px" }} onClick={OnStart}>เริ่มเกม</CustomButton>
               <CustomButton variant="outlined" sx={{ padding: "10px 30px", marginLeft: "10px" }}>ตั้งค่า</CustomButton>
             </Box>
-            
+
           </Grid> : ""}
         {quiz.length < 1 && isCanStart == false ?
           <Grid item xl={6} lg={6} md={6} sx={{ padding: "10px 10px 10px 20px", height: "50vh" }}>
             <Button variant="outlined" sx={{ padding: "10px 20px" }} onClick={OnStart}>START</Button>
           </Grid> : ""}
-          
-          
-          
+
+
+
 
 
         {quiz.length > 0 && isCanStart == true ?
