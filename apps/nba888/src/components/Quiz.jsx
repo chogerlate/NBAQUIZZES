@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu, Grid, TextField ,InputBase} from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import UserContext from "../App"
 import axios from "axios"
 const useStyles = makeStyles({
   container: {
@@ -106,18 +107,25 @@ const Quiz = () => {
       NextQuiz();
     }, 1000);
   }
+  
 
-  function handlePlayerName(e){
-    const name = e.target.value;
-    setPlayerName(name);
-  }
+  const playerName = useContext(UserContext);
   function handleQuizAmount(e){
     const number = ParseInt(e.target.value);
     setPlayerName(number);
   }
+  function SubmitPlayerName(){
+    console.log("HEY: "+playerName)
+    localStorage.setItem("playerName",playerName);
+  }
+  function HandlePlayerName(e){
+    console.log(e.target.value)
+    playerName = e.target.value;
+  }
   const [isCanStart, setIscanStart] = useState(false);
-  const [playerName,setPlayerName] = useState("");
+  
   const classes = useStyles();
+  
   return (
     <Box sx={{ width: "100%" }}>
       <Grid container className={classes.container} sx={{
@@ -140,8 +148,8 @@ const Quiz = () => {
             <Box sx={{ display: "flex" ,marginTop:"5px"}}>
               <InputBase sx={{width:"75%",backgroundColor:"red",border:"2px solid #FFD372"
               ,backgroundColor:"rgba(255, 211, 114,0.25)",padding:"10px 20px",fontSize:"20px"
-              ,borderRadius:"20px 0 0 20px",color:"#808080"}} value={playerName} onChange={handlePlayerName} placeholder="ระบุชื่อเล่น"/>
-              <SubmitNameButton>บันทึก</SubmitNameButton>
+              ,borderRadius:"20px 0 0 20px",color:"#808080"}} onChange={HandlePlayerName} value={playerName}  placeholder="ระบุชื่อเล่น"/>
+              <SubmitNameButton onClick={SubmitPlayerName}>บันทึก</SubmitNameButton>
             </Box>
             <Typography sx={{fontSize:"20px",textAlign:"left",color:"#0008C1",marginTop:"20px"}}>จำนวนข้อ</Typography>
             <Box sx={{ display: "flex",marginTop:"5px"}}>
