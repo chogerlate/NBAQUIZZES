@@ -3,6 +3,7 @@ import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu, Grid, T
 import { makeStyles } from "@mui/styles";
 import {UserContext} from "../App"
 import axios from "axios"
+import BearAvatarImage from "../assets/images/avatar/bear.png"
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -28,13 +29,13 @@ const useStyles = makeStyles({
     },
   },
   playerProfileImage: {
-    marginTop: "10px",
-    width: "100px",
+    marginTop: "20px",
+    width: "150px",
     borderRadius: "50%",
     marginLeft: "auto",
     marginRight: "auto",
     ['@media (max-width:1535px)']: {
-      width: "75px"
+      width: "110px"
     },
   }
 })
@@ -138,9 +139,9 @@ const Quiz = () => {
             <Typography sx={{ fontSize: "20px", textAlign: "center", color: "#0008C1" }}>เล่นเลย!</Typography>
 
             <Box>
-              <img src="" className={classes.playerProfileImage} />
+              <img src={BearAvatarImage} className={classes.playerProfileImage} />
             </Box>
-            <Typography sx={{ fontSize: "20px", textAlign: "left", color: "#0008C1" }}>ชื่อเล่น</Typography>
+            <Typography sx={{ fontSize: "20px", textAlign: "left", color: "#0008C1" ,marginTop:"10px"}}>ชื่อเล่น</Typography>
             <Box sx={{ display: "flex", marginTop: "5px" }}>
               <InputBase sx={{
                 width: "75%", backgroundColor: "red", border: "2px solid #FFD372"
