@@ -28,6 +28,11 @@ app.get("/generel_question", (req, res, next) => {
     })
 });
 
+app.post("/generel_question", (req, res, next) => {
+    db.query("SELECT * FROM `question_general`", (err, results) => {
+        res.json(results);
+    })
+});
 function getQuizFromTable() {
     var myArray = new Array(1);
     db.query(`SELECT * FROM question_general WHERE id = ${1}`, (err, results) => {
