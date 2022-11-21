@@ -3,8 +3,9 @@ import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu, Grid, T
 import { makeStyles } from "@mui/styles";
 import {UserContext} from "../App"
 import axios from "axios"
-import BearAvatarImage from "../assets/images/avatar/bear.png"
+import BearAvatarImage from "/images/avatar/bear.png"
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { ProfileAvatarStore } from "./AvatarStore";
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -78,7 +79,7 @@ const Quiz = () => {
   const [quizIndex, setQuizIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [quizAmount, setQuizAmount] = useState(10);
-  const {playerName,setPlayerName} = useContext(UserContext)
+  const {playerName,setPlayerName,profileAvatarIndex,setProfileAvatarIndex} = useContext(UserContext)
   function OnStart() {
     getQuiz();
     setTimeout(function () {
@@ -119,6 +120,12 @@ const Quiz = () => {
     localStorage.setItem("playerName", playerNameChanging);
     setPlayerName(playerNameChanging);
   }
+
+  function SubmitAvatarProfile(avatarIndex){
+    localStorage.setItem("playerAvatar",avatarIndex);
+    setProfileAvatarIndex(avatarIndex);
+  }
+
   const [playerNameChanging, setPlayerNameChanging] = useState("");
   function HandlePlayerName(e) {
     setPlayerNameChanging(e.target.value);
@@ -126,6 +133,7 @@ const Quiz = () => {
   const [isCanStart, setIscanStart] = useState(false);
   useEffect(() => {
     setPlayerNameChanging(window.localStorage.getItem("playerName"));
+    setProfileAvatarIndex(window.localStorage.getItem("playerAvatar"));
   }, [])
   const classes = useStyles();
   const [isEditingAvatar,setIsEditingAvatar] = useState(true);
@@ -150,7 +158,7 @@ const Quiz = () => {
               <ModeEditIcon sx={{position:"absolute",top:"5px",left:"55%",backgroundColor:"#FFD372",borderRadius:"20px"
               ,padding:"5px",fontSize:{xl:"40px",lg:"30px",zIndex:"3"},border:"4px solid white",cursor:"pointer"}} 
               onClick={()=>{setIsEditingAvatar(value => !value)}}/>
-              <img src={BearAvatarImage} className={classes.playerProfileImage} />
+              <img src={ProfileAvatarStore[profileAvatarIndex-1].imageDirectory} className={classes.playerProfileImage} alt=""/>
             </Box>
             <Typography sx={{ fontSize: "20px", textAlign: "left", color: "#0008C1" ,marginTop:"10px"}}>ชื่อเล่น</Typography>
             <Box sx={{ display: "flex", marginTop: "5px" }}>
@@ -268,12 +276,30 @@ const Quiz = () => {
         aria-describedby="alert-dialog-slide-description"
       >
         <Box sx={{width:"60vh",height:"50vh"}}>
-          <Grid container sx={{width:"100%",height:"100%"}}>
-            <Grid item xl={3} sx={{backgroundColor:"red"}}>HELLO</Grid>
-            <Grid item xl={3} sx={{backgroundColor:"red"}}>HELLO</Grid>
-            <Grid item xl={3} sx={{backgroundColor:"red"}}>HELLO</Grid>
-            <Grid item xl={3} sx={{backgroundColor:"red"}}>HELLO</Grid>
+          <Typography sx={{textAlign:"center",marginTop:"20px",fontSize:"26px",fontWeight:"600"}}>Profile Avatar</Typography>
+          <Box sx={{padding:"20px",}}>
+          <Grid container sx={{width:"100%",backgroundColor:"#C8B6E2",borderRadius:"10px"}}>
+            
+            {ProfileAvatarStore.map((image)=>{
+              return(
+                <Grid item xl={3} sx={{padding:"7px"}}>
+              <Box sx={{backgroundColor:"white",borderRadius:"10px",padding:"10px",cursor:"pointer"
+              ,"&:hover":{
+                border:"4px solid #BA94D1",
+                padding:"6px"
+              }}} onClick={()=>{
+                SubmitAvatarProfile(image.id);
+                setIsEditingAvatar(false)
+                }}>
+                <img src={image.imageDirectory}/>
+              </Box>
+            </Grid>
+              )
+            })}
+            
+            
           </Grid>
+          </Box>
         </Box>
       </Dialog>
     </Box>

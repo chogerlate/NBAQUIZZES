@@ -1,7 +1,7 @@
 import { AppBar, Button, Drawer, styled, Toolbar, Typography, Box, Menu } from "@mui/material";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import logo from "..//assets/images/NBA888.png"
+import logo from "/images/NBA888.png"
 const useStyles = makeStyles({
   Logo:{
     width:"240px",

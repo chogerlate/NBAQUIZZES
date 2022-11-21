@@ -19,11 +19,13 @@ export const UserContext = createContext();
 export default function App() {
   useEffect(() => {
     setPlayerName(window.localStorage.getItem("playerName"));
+    setProfileAvatarIndex(window.localStorage.getItem("playerAvatar"));
   }, [])
   const [playerName,setPlayerName] = useState("");
+  const [profileAvatarIndex, setProfileAvatarIndex] = useState(0)
   return (
     <>
-      <UserContext.Provider value={{playerName,setPlayerName}}>
+      <UserContext.Provider value={{playerName,setPlayerName,profileAvatarIndex,setProfileAvatarIndex}}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
