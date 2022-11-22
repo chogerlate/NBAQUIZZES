@@ -1,5 +1,10 @@
 const ProfileAvatarStore = [
     {
+        id:"0",
+        name:"Wolf",
+        imageDirectory:"/images/avatar/wolf.png"
+    },
+    {
         id:"1",
         name:"Bear",
         imageDirectory:"/images/avatar/bear.png"
