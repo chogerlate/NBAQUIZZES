@@ -15,6 +15,7 @@ import { QuizProvider } from "./contexts/quiz.jsx";
 import axios from "axios"
 import QuizResult from "./pages/QuizResult";
 
+
 export const UserContext = createContext();
 
 export default function App() {
