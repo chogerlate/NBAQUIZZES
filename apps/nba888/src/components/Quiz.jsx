@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, styled, Typography, Box, Menu, Grid, TextField
   , InputBase, Dialog, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -89,17 +90,30 @@ const SubmitNameButton = styled(Button)(({ theme }) => ({
 }));
 
 const Quiz = () => {
+  let navigate = useNavigate();
   const [quiz, setQuiz] = useState([
   ])
   const [quizIndex, setQuizIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [quizAmount, setQuizAmount] = useState(10);
-  const { playerName, setPlayerName, profileAvatarIndex, setProfileAvatarIndex } = useContext(UserContext)
+  const [quizAmount, setQuizAmount] = useState(5);
+  const { playerName, setPlayerName, profileAvatarIndex, setProfileAvatarIndex ,score,setScore} = useContext(UserContext)
+  const [countdownStartGame,setCountdownStartGame] = useState(5);
   function OnStart() {
     getQuiz();
     setTimeout(function () {
       setIscanStart(true);
-    }, 7000);
+    }, 6000);
+    let i = 0;
+    let myInterval = setInterval(()=>{
+      if(countdownStartGame>0){
+        setCountdownStartGame(count=>count-1);
+      }
+      else{
+        setCountdownStartGame(0);
+      }
+    },1000)
+    return()=>{
+      clearInterval(myInterval);
+    }
   }
 
   async function getQuiz() {
@@ -117,7 +131,8 @@ const Quiz = () => {
       setQuizIndex(quizIndex + 1);
     }
     if (quizIndex + 1 == quiz.length) {
-      setQuizIndex(0);
+      console.log("End of Play")
+      navigate("/QuizResult");
     }
   }
 
@@ -128,7 +143,7 @@ const Quiz = () => {
     }
     setTimeout(function () {
       NextQuiz();
-    }, 1000);
+    }, 500);
   }
   function SubmitPlayerName() {
     localStorage.setItem("playerName", playerNameChanging);
@@ -311,7 +326,11 @@ const Quiz = () => {
                   </Typography>
                 </Grid>
                 </Grid>
-          </Grid> : ""}
+          </Grid> : 
+          <Typography sx={{fontSize:"350px",marginLeft:"auto",marginRight:"auto",display:"flex"
+          ,justifySelf:"center",color:"#7743DB",textShadow:"#FECD70 0px 0px 10px"}}>
+            {countdownStartGame>0 ? countdownStartGame:""}  
+          </Typography>}
 
 
         {quiz.length > 0 && isCanStart == true ?
@@ -385,7 +404,7 @@ const Quiz = () => {
 
               {ProfileAvatarStore.map((image) => {
                 return (
-                  <Grid item xl={3} sx={{ padding: "7px" }}>
+                  <Grid item xl={3} lg={3} sx={{ padding: "7px" }}>
                     <Box sx={{
                       backgroundColor: image.id == profileAvatarIndex ? "#EDEDED" : "white", borderRadius: "10px", padding: "10px", cursor: "pointer"
                       , border: image.id == profileAvatarIndex ? "4px solid #432C7A" : ""
@@ -402,8 +421,6 @@ const Quiz = () => {
                   </Grid>
                 )
               })}
-
-
             </Grid>
           </Box>
         </Box>

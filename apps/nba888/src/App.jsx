@@ -13,6 +13,7 @@ import Navbar from "./components/Navbar";
 import Quiz from "./components/Quiz.jsx";
 import { QuizProvider } from "./contexts/quiz.jsx";
 import axios from "axios"
+import QuizResult from "./pages/QuizResult";
 
 export const UserContext = createContext();
 
@@ -23,14 +24,16 @@ export default function App() {
   }, [])
   const [playerName,setPlayerName] = useState("");
   const [profileAvatarIndex, setProfileAvatarIndex] = useState(0)
+  const [score, setScore] = useState(0)
   return (
     <>
-      <UserContext.Provider value={{playerName,setPlayerName,profileAvatarIndex,setProfileAvatarIndex}}>
+      <UserContext.Provider value={{playerName,setPlayerName,profileAvatarIndex,setProfileAvatarIndex,score,setScore}}>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="Quizz1" element={<Quizz1/>} />
-            <Route path="Quizz2" element={<Quizz2 />} />
+            <Route path="Quiz1" element={<Quizz1/>} />
+            <Route path="QuizResult" element={<QuizResult/>} />
+            <Route path="Quizz2" element={<Quizz2/>} />
             <Route path="*" element={<Nopage />} />
           </Route>
         </Routes>
