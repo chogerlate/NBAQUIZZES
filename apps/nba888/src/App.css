@@ -26,14 +26,15 @@ body {
   margin: 0;
   padding: 0;
   position: absolute;
-  background-image: url("../public/images/Main For Prototype.png");
+  background-image: url("../public/images/Fix ColorMain For Prototype.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat, repeat;
   background-attachment: fixed;
   background-size: cover; /* Resize the background image to cover the entire container */
 }
+/*
 .content::before {
-  /*  increase contrast between content and background */
+    increase contrast between content and background 
   content: "";
   display: block;
   position: absolute;
@@ -43,6 +44,7 @@ body {
   height: 100%;
   position: fixed;
 }
+*/
 /*
   Typographic tweaks!
   4. Add accessible line-height

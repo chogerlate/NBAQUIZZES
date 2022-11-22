@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -43,58 +44,81 @@ function QuizzCard() {
           alignItems="start"
           spacing="2rem"
         >
-          <Grid item>
-            <Card sx={{ maxWidth: 500 }}>
-              <CardMedia
-                component="img"
-                alt="tbate"
-                height="140"
-                image="https://i.ytimg.com/vi/1wmZuSWbec0/maxresdefault.jpg"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <StyledToolbar sx={{ width: "100%" }}>
-                <CardActions>
-                  <Button variant="contained" size="medium">
-                    Play Quizz1
-                  </Button>
-                </CardActions>
-              </StyledToolbar>
-            </Card>
-          </Grid>
-          <Grid item>
-            <Card sx={{ maxWidth: 500 }}>
-              <CardMedia
-                component="img"
-                alt="tbate"
-                height="140"
-                image="https://i.ytimg.com/vi/1wmZuSWbec0/maxresdefault.jpg"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <StyledToolbar sx={{ width: "100%" }}>
-                <CardActions>
-                  <Button variant="outlined" size="medium">
-                    Play Quizz2
-                  </Button>
-                </CardActions>
-              </StyledToolbar>
-            </Card>
-          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "2rem",
+              height: "100%",
+              flexWrap: "wrap",
+              alignContent: "center",
+            }}
+          >
+            <Grid item>
+              <Card
+                sx={{ maxWidth: 500, borderRadius: "16px", height: "32rem" }}
+              >
+                <CardMedia
+                  component="img"
+                  alt="tbate"
+                  height="140"
+                  image="https://phantom-marca.unidadeditorial.es/ee46d7a1c09b447117f8e83c6e131f31/resize/1320/f/jpg/assets/multimedia/imagenes/2022/02/02/16437899001758.jpg"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    เกมตอบคำถามวัดความรู้เกี่ยวกับ NBA ของคุณ
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ในเกมนี้เราจะให้ผู้ใช้งานได้ทำการเล่นเกมตอบคำถาม
+                    ที่มีความเกี่ยวข้องกับกีฬาการแข่งขัน NBA
+                    โดยจะมีการแบ่งออกเป็น
+                    ระดับความยากที่แตกต่างกันตั้งแต่ระดับง่ายสุดไปจนถึงระดับแฟนตัวยง
+                    มาวัดความรู้ NBA ของคุณกันนน!!!
+                  </Typography>
+                </CardContent>
+                <StyledToolbar sx={{ width: "100%" }}>
+                  <CardActions>
+                    <Link to="../pages/Quizz1.tsx">
+                      <Button variant="contained" size="medium">
+                        เกมตอบคำถามวัดความรู้ NBA
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </StyledToolbar>
+              </Card>
+            </Grid>
+            <Grid item>
+              <Card
+                sx={{ maxWidth: 500, borderRadius: "16px", height: "32rem" }}
+              >
+                <CardMedia
+                  component="img"
+                  alt="tbate"
+                  height="140"
+                  image="https://images.complex.com/complex/images/c_scale,f_auto,q_auto,w_1920/fl_lossy,pg_1/utgfcacoxl6hwd2bj2ay/10-most-influential-nba-players-2022-original-nonw?fimg-ssr-default"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    คุณมีสไตล์การเล่นบาสเหมือนนักกีฬา NBA คนใด?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    แบบทดสอบที่จะทำให้คุณได้เรียนรู้เกี่ยวกับตัวคุณเองมากขึ้น
+                    ว่าตัวคุณนั้นมีสไตล์การเล่นบาสเก็ตบอลคล้ายกับนักกีฬา NBA
+                    คนใดจากทั้งในอตีตและปัจจุบัน
+                  </Typography>
+                </CardContent>
+                <StyledToolbar sx={{ width: "100%" }}>
+                  <CardActions>
+                    <Link to={"../pages/Quizz2.tsx"}>
+                      <Button variant="outlined" size="medium">
+                        แบบทดสอบประเมินสไตล์การเล่น
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </StyledToolbar>
+              </Card>
+            </Grid>
+          </Box>
         </Grid>
       </Grid>
     </>
