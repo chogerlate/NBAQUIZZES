@@ -24,7 +24,7 @@ export default function App() {
   const [playerName,setPlayerName] = useState("");
   const [profileAvatarIndex, setProfileAvatarIndex] = useState(0)
   return (
-    <>
+    <div className="content">
       <UserContext.Provider value={{playerName,setPlayerName,profileAvatarIndex,setProfileAvatarIndex}}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -35,7 +35,7 @@ export default function App() {
           </Route>
         </Routes>
       </UserContext.Provider>
-    </>
+    </div>
   );
 }
 

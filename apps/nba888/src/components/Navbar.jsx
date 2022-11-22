@@ -4,9 +4,10 @@ import { makeStyles } from "@mui/styles";
 import logo from "/images/NBA888.png"
 const useStyles = makeStyles({
   Logo:{
-    width:"240px",
+    width:"320px",
     marginLeft:"auto",
     marginRight:"auto",
+    marginTop:"100px",
     padding:"0 10px"
   }
 })
@@ -24,7 +25,7 @@ function ResponsiveAppBar() {
   return (
       <Box sx={{width: "100%",textAlign:"center",backgroundColor: "rgba(0,0,0,0)"}}>
         <StyledToolbar sx={{ width:"100%"}}>
-            <Box sx={{padding:"30px",paddingTop:"30px"}}>
+            <Box sx={{padding:"30px",paddingTop:"30px" }}>
             <img className={classes.Logo} src={logo}/>
             <Typography sx={{fontSize:"20px",color:"red",fontWeight:"600",marginTop:"10px",color:"white"}}>GUESS, QUIZ, STAR </Typography>
             </Box>
