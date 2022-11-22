@@ -1,24 +1,18 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Grid } from "@mui/material";
 import {
-  AppBar,
   Button,
-  Drawer,
   styled,
   Toolbar,
   Typography,
   Box,
-  Menu,
   CssBaseline,
 } from "@mui/material";
-
-import { Stack } from "@mui/system";
-import { makeStyles } from "@mui/styles";
 
 const StyledToolbar = styled(Toolbar)({
   textAlign: "center",
@@ -27,6 +21,7 @@ const StyledToolbar = styled(Toolbar)({
 });
 
 function QuizzCard() {
+  let navigate = useNavigate()
   return (
     <>
       <CssBaseline />
@@ -62,6 +57,7 @@ function QuizzCard() {
                   component="img"
                   alt="tbate"
                   height="140"
+                
                   image="https://phantom-marca.unidadeditorial.es/ee46d7a1c09b447117f8e83c6e131f31/resize/1320/f/jpg/assets/multimedia/imagenes/2022/02/02/16437899001758.jpg"
                 />
                 <CardContent>
@@ -78,11 +74,9 @@ function QuizzCard() {
                 </CardContent>
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
-                    <Link to="../pages/Quizz1.tsx">
-                      <Button variant="contained" size="medium">
+                      <Button variant="contained" size="medium" onClick={()=>{navigate("/Quiz1")}}>
                         เกมตอบคำถามวัดความรู้ NBA
                       </Button>
-                    </Link>
                   </CardActions>
                 </StyledToolbar>
               </Card>
@@ -109,11 +103,10 @@ function QuizzCard() {
                 </CardContent>
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
-                    <Link to={"../pages/Quizz2.tsx"}>
-                      <Button variant="outlined" size="medium">
+                    
+                      <Button variant="outlined" size="medium" onClick={()=>{navigate("/Quizz2")}}>
                         แบบทดสอบประเมินสไตล์การเล่น
                       </Button>
-                    </Link>
                   </CardActions>
                 </StyledToolbar>
               </Card>

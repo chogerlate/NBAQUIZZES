@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Menubar from "../components/Menubar";
-import UserContext from "../App";
+import { UserContext } from "../App";
 
 // import bgimg from "../../public/images/bgimg.png";
 
