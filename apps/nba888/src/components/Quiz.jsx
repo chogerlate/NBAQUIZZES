@@ -143,7 +143,6 @@ const Quiz = () => {
     if (quizIndex + 1 == quiz.length) {
       console.log("End of Play");
       setTotalScore(quiz.length);
-      
       navigate("/QuizResult");
     }
     if(quizIndex){

@@ -21,6 +21,7 @@ import axios from "axios";
 import HomeIcon from '@mui/icons-material/Home';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useNavigate } from "react-router-dom";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Container } from "@mui/system";
 
 const useStyles = makeStyles({
@@ -80,7 +81,7 @@ const QuizResult = () => {
         }
     }, []);
     const classes = useStyles();
-
+    const [isSeeSolution, setIsSeeSolution] = useState(false);
     return (
         <Box sx={{ width: "100%" }}>
             <Grid
@@ -95,7 +96,11 @@ const QuizResult = () => {
                     boxShadow: "white 0px 4px 8px",
                 }}
             >
-
+                <Box sx={{position:"absolute",left:"20px",top:"20px"}}>
+                    <EmojiEventsIcon sx={{fontSize:"50px",backgroundColor:"#7743DB"
+                    ,padding:"10px",borderRadius:"30px",color:"#FFE15D",cursor:"pointer",}} onClick={()=>{setIsSeeSolution(prev=>!prev)}}/>
+                    
+                </Box>
                 <Grid item lg={12} sx={{ padding: "0 20px" }}>
                     <img src={ProfileAvatarStore[profileAvatarIndex].imageDirectory} className={classes.profileImage} />
                     <Typography
@@ -119,6 +124,11 @@ const QuizResult = () => {
                     >
                         จาก {totalScore} ข้อ
                     </Typography>
+                    <Typography
+                        sx={{ fontSize: "30px", fontWeight: "600", textAlign: "center", marginTop: "20px" }}
+                    >
+                       ในระดับความยาก {}
+                    </Typography>
                     <Box sx={{ position: "relative" ,width:"80%",marginTop:"20px",height:"40px",marginLeft:"auto",marginRight:"auto"}}>
                         <Box sx={{
                             backgroundColor: "#65C18C", width: score != 0 ? `${(score / totalScore) * 100}%` : "0%", height: "40px", position: "absolute"
@@ -127,22 +137,18 @@ const QuizResult = () => {
                             {score != 0 ? <Typography sx={{
                                 marginTop: "8px"
                                 , marginRight: "10px", color: "white", fontWeight: "600", top: "0"
-                            }}>{(score / totalScore) * 100}%</Typography> : ""}
+                            }}>{((score / totalScore) * 100).toFixed(2)}%</Typography> : ""}
                         </Box>
                         <Box sx={{
                             backgroundColor: "#C7F2A4", width: "100%", height: "40px", position: "absolute"
                             , left: "0", borderRadius: "5px", zIndex: "3", top: "0"
                         }} id="RangeScore">
                         </Box>
-                    </Box><Typography
-                        sx={{ fontSize: "30px", fontWeight: "600", textAlign: "center", marginTop: "20px" }}
-                    >
-                       {((score / totalScore) * 100)<=50? "ลองทำอีกครั้งดูซิ!": "คุณก็เก่งเกิ้น"}
-                    </Typography>
+                    </Box>
                 </Grid>
 
 
-                <Grid item lg={12} sx={{ textAlign: "center" ,marginTop:"10px"}}>
+                <Grid item lg={12} sx={{ textAlign: "center" ,marginTop:"20px"}}>
                     <Box
                         sx={{
                             alignItems: "center",
@@ -180,6 +186,21 @@ const QuizResult = () => {
                 </Grid>
             </Grid>
             {/*/Edit Profile Avatar Card*/}
+            <Dialog
+        open={isSeeSolution}
+        keepMounted
+        onClose={() => {setIsSeeSolution(prev=>!prev)}}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <Box sx={{ width: "60vh", height: "50vh", position: "relative" }}>
+        
+          <Typography sx={{ textAlign: "center", marginTop: "20px", fontSize: "26px", fontWeight: "600" }}>Score Board</Typography>
+          <Box sx={{ padding: "20px", }}>
+            <Grid container sx={{ width: "100%", backgroundColor: "#C8B6E2", borderRadius: "10px" }}>
+            </Grid>
+          </Box>
+        </Box>
+      </Dialog>
         </Box>
     );
 };
