@@ -55,7 +55,7 @@ function PrintData(data){
     ///console.log(data);
 }
 function getFromTable(res,questionType) {
-    let randomId = randomQuestionType = Math.floor(Math.random() * 10) + 1;
+    let randomId = randomQuestionType = Math.floor(Math.random() * 15) + 1;
     if(questionType==1){
         db.query(`SELECT * FROM question_general WHERE id = ${randomQuestionType}`, (err, results) => {
             var data = results[0];

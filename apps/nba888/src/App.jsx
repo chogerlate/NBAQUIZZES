@@ -18,6 +18,7 @@ export default function App() {
   const [playerName, setPlayerName] = useState("");
   const [profileAvatarIndex, setProfileAvatarIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [totalScore, setTotalScore] = useState(0);
   return (
     <>
       <UserContext.Provider
@@ -28,6 +29,8 @@ export default function App() {
           setProfileAvatarIndex,
           score,
           setScore,
+          totalScore,
+          setTotalScore
         }}
       >
         <Routes>

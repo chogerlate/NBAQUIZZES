@@ -58,9 +58,9 @@ const useStyles = makeStyles({
     marginLeft:"auto",
     marginRight:"auto",
     width:"100px",
-  },
-  ['@media (max-width:1535px)']: {
-    width: "70px"
+    ['@media (max-width:1535px)']: {
+      width: "80px"
+    },
   },
 })
 
@@ -71,7 +71,9 @@ const CustomButton = styled(Button)(({ theme }) => ({
   border: "2px solid #FFD372",
   transition: "0.25s",
   "&:hover": {
-    backgroundColor: "#EEF1FF",
+    backgroundColor: "#EEF1FF",display: "flex",
+              flexDirection: "row",
+              flexGrow: 1,
     border: "2px solid #FFB200",
   },
 }));
@@ -95,7 +97,15 @@ const Quiz = () => {
   ])
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizAmount, setQuizAmount] = useState(5);
-  const { playerName, setPlayerName, profileAvatarIndex, setProfileAvatarIndex ,score,setScore} = useContext(UserContext)
+  const { playerName, 
+    setPlayerName, 
+    profileAvatarIndex, 
+    setProfileAvatarIndex,
+    score,
+    setScore,
+    totalScore,
+  setTotalScore
+} = useContext(UserContext)
   const [countdownStartGame,setCountdownStartGame] = useState(5);
   function OnStart() {
     getQuiz();
@@ -131,8 +141,13 @@ const Quiz = () => {
       setQuizIndex(quizIndex + 1);
     }
     if (quizIndex + 1 == quiz.length) {
-      console.log("End of Play")
+      console.log("End of Play");
+      setTotalScore(quiz.length);
+      
       navigate("/QuizResult");
+    }
+    if(quizIndex){
+
     }
   }
 

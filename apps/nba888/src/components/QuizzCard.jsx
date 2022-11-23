@@ -14,11 +14,45 @@ import {
   CssBaseline,
 } from "@mui/material";
 
+
 const StyledToolbar = styled(Toolbar)({
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
 });
+
+const CustomButtonOutlined = styled(Button)(({ theme }) => ({
+  color: "#808080",
+  fontSize: "16px",
+  border: "2px solid #FFD372",
+  borderRadius: "10px",
+  padding: "10px 20px",
+  boxShadow:"none",
+  backgroundColor: "white",
+  "&:hover": {
+    backgroundColor: "white",
+    color: "#36454F",
+    boxShadow:"none",
+    backgroundColor:"rgba(255, 211, 114,0.05)"
+  },
+}));
+
+const CustomButtonContained = styled(Button)(({ theme }) => ({
+  color: "#36454F",
+  fontSize: "16px",
+  border: "2px solid #FFD372",
+  borderRadius: "10px",
+  padding: "10px 20px",
+  boxShadow:"none",
+  backgroundColor: "rgba(255, 211, 114,0.25)",
+  "&:hover": {
+    backgroundColor: "white",
+    border:"2px solid #FFD372",
+    color: "#36454F",
+    boxShadow:"none",
+    backgroundColor:"rgba(255, 211, 114,0.05)"
+  },
+}));
 
 function QuizzCard() {
   let navigate = useNavigate()
@@ -74,9 +108,9 @@ function QuizzCard() {
                 </CardContent>
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
-                      <Button variant="contained" size="medium" onClick={()=>{navigate("/Quiz1")}}>
+                      <CustomButtonOutlined variant="contained" size="medium" onClick={()=>{navigate("/Quiz1")}}>
                         เกมตอบคำถามวัดความรู้ NBA
-                      </Button>
+                      </CustomButtonOutlined>
                   </CardActions>
                 </StyledToolbar>
               </Card>
@@ -104,13 +138,14 @@ function QuizzCard() {
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
                     
-                      <Button variant="outlined" size="medium" onClick={()=>{navigate("/Quizz2")}}>
+                      <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz2")}}>
                         แบบทดสอบประเมินสไตล์การเล่น
-                      </Button>
+                      </CustomButtonContained>
                   </CardActions>
                 </StyledToolbar>
               </Card>
             </Grid>
+            
           </Box>
         </Grid>
       </Grid>

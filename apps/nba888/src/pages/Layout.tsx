@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { useContext } from "react";
+import { Box, Typography } from "@mui/material";
+import { useContext ,useEffect} from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { UserContext } from "../App";
@@ -7,7 +7,7 @@ import { UserContext } from "../App";
 // import bgimg from "../../public/images/bgimg.png";
 
 const Layout = () => {
-  const playerName = useContext(UserContext);
+  const {playerName}= useContext(UserContext);
   return (
     <Box
       sx={{
@@ -19,6 +19,7 @@ const Layout = () => {
         height: "100vh",
       }}
     >
+      <Typography sx={{fontSize:"30px",position:"absolute",right:"30px",top:"20px",color:"white"}}>{playerName}</Typography>
       <Navbar />
       <Outlet />
     </Box>
