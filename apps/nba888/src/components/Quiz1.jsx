@@ -143,7 +143,7 @@ const Quiz = () => {
     if (quizIndex + 1 == quiz.length) {
       console.log("End of Play");
       setTotalScore(quiz.length);
-      navigate("/QuizResult");
+      navigate("/Quiz1_Result");
     }
     if(quizIndex){
 
@@ -366,10 +366,12 @@ const Quiz = () => {
                 <img src={quiz[quizIndex].image_url} className={classes.quizImage} />
               </Grid>
               <Grid container sx={{ width: "100%", marginTop: "20px" }}>
-                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_1) }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px"}} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_1) }}>
                   <Box sx={{
                     width: "100%", height: "100%", display: "flex", justifyContent: "center"
-                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px"
+                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
+                      backgroundColor:"rgba(119, 67, 219,0.25)"
+                    }
                   }}>
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_1}</Typography>
                   </Box>
@@ -377,7 +379,9 @@ const Quiz = () => {
                 <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_2) }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
-                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px"
+                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
+                      backgroundColor:"rgba(119, 67, 219,0.25)"
+                    }
                   }}>
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_2}</Typography>
                   </Box>
@@ -385,7 +389,9 @@ const Quiz = () => {
                 <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_3) }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
-                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px"
+                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
+                      backgroundColor:"rgba(119, 67, 219,0.25)"
+                    }
                   }}>
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_3}</Typography>
                   </Box>
@@ -393,7 +399,9 @@ const Quiz = () => {
                 <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_4) }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
-                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px"
+                    , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
+                      backgroundColor:"rgba(119, 67, 219,0.25)"
+                    }
                   }}>
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_4}</Typography>
                   </Box>

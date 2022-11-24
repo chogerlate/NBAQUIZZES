@@ -7,6 +7,7 @@ import Nopage from "./pages/Nopage";
 import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import QuizResult from "./pages/QuizResult";
+import QuizResultNBA from "./pages/QuizResultNBA";
 
 export const UserContext = createContext();
 
@@ -37,8 +38,8 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="Quiz1" element={<Quizz1 />} />
-            <Route path="QuizResult" element={<QuizResult />} />
-            <Route path="Quizz2" element={<Quizz2 />} />
+            <Route path="Quiz1_Result" element={<QuizResult />} />
+            <Route path="Quiz2_Result" element={<QuizResultNBA/>} />
             <Route path="*" element={<Nopage />} />
           </Route>
         </Routes>
