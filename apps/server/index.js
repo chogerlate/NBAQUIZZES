@@ -22,26 +22,6 @@ app.get("/nba_player", (req, res, next) => {
     })
 });
 
-app.get("/generel_question", (req, res, next) => {
-    db.query("SELECT * FROM `question_general`", (err, results) => {
-        res.json(results);
-    })
-});
-
-app.post("/generel_question", (req, res, next) => {
-    db.query("SELECT * FROM `question_general`", (err, results) => {
-        res.json(results);
-    })
-});
-function getQuizFromTable() {
-    var myArray = new Array(1);
-    db.query(`SELECT * FROM question_general WHERE id = ${1}`, (err, results) => {
-        getDataFromTable = JSON.stringify(results)
-        myArray[0] = getDataFromTable;
-        console.log("test: " + myArray);
-        return myArray;
-    })
-}
 
 /// Type 1 = general question
 /// Type 2 = easy question
@@ -55,27 +35,27 @@ function PrintData(data){
     ///console.log(data);
 }
 function getFromTable(res,questionType) {
-    let randomId = randomQuestionType = Math.floor(Math.random() * 15) + 1;
+    let randomId = Math.floor(Math.random() * 15) + 1;
     if(questionType==1){
-        db.query(`SELECT * FROM question_general WHERE id = ${randomQuestionType}`, (err, results) => {
+        db.query(`SELECT * FROM question_general WHERE id = ${randomId}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });
     }
     if(questionType==2){
-        db.query(`SELECT * FROM question_easy WHERE id = ${randomQuestionType}`, (err, results) => {
+        db.query(`SELECT * FROM question_easy WHERE id = ${randomId}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });
     }
     if(questionType==3){
-        db.query(`SELECT * FROM question_hard WHERE id = ${randomQuestionType}`, (err, results) => {
+        db.query(`SELECT * FROM question_hard WHERE id = ${randomId}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });
     }
     if(questionType==4){
-        db.query(`SELECT * FROM question_bigfan WHERE id = ${randomQuestionType}`, (err, results) => {
+        db.query(`SELECT * FROM question_bigfan WHERE id = ${randomId}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });

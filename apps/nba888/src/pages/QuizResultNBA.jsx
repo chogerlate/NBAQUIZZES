@@ -35,7 +35,7 @@ const useStyles = makeStyles({
         marginRight: "auto"
     },
     nbaPlayerImage:{
-        width:"30%",
+        width:"350px",
         height:"80%",
         position:"absolute",
         left:"0",
@@ -95,7 +95,8 @@ const QuizResultNBA = () => {
             backgroundColor: "rgba(00,255,00,0.1)",
             borderColor:"rgba(00,255,00,0.5)",
             borderWidth:2,
-            data:[4,3,4,2,4,3]
+            
+            data:[4,2,4,3,4,3]
         }
         ]
     };
@@ -115,12 +116,14 @@ const QuizResultNBA = () => {
                     width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" },
                     padding: "20px",
                     borderRadius: "20px",
-                    height: "70vh",
+                    height: "80vh",
                     position: "relative",
                     boxShadow: "white 0px 4px 8px",
+                    textAlign:"center",
                 }}
             >
-                <Grid item lg={12} sx={{width:{xl:"100%",lg:"80%",md:"70%"},height:{xl:"80%",lg:"80%"},position:"relative"}}>
+                <Grid item lg={6} sx={{width:{xl:"100%",lg:"80%",md:"70%"},height:{xl:"90%",lg:"90%"},position:"relative",marginLeft:"auto"
+                ,marginRight:"auto"}}>
                     <Box sx={{width:"100%",height:"100%"}}>
                         <Radar data={chartData} options={options}/>
                     </Box>
@@ -130,8 +133,8 @@ const QuizResultNBA = () => {
                 </Grid>
                 
                 <Grid item lg={12} sx={{textAlign:"center"}}>
-                    <Typography sx={{fontSize:"20px"}}>You're</Typography>
-                    <Typography sx={{fontSize:"30px",fontWeight:"600"}}>Stephen Curry</Typography>
+                    <Typography sx={{fontSize:"20px"}}>คุณคือ</Typography>
+                    <Typography sx={{fontSize:"36px",fontWeight:"600"}}>Stephen Curry</Typography>
                 </Grid>
                 </Grid>
             {/*/Edit Profile Avatar Card*/}

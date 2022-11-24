@@ -160,7 +160,7 @@ const QuizResult = () => {
                         }}
                     >
                         <CustomButtonContained
-                            style={{ padding: "1rem 2rem" }}
+                            style={{ padding: "1rem" }}
                             variant="contained"
                             onClick={() => {
                                 setTotalScore(0);
@@ -169,12 +169,11 @@ const QuizResult = () => {
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
-                                <RestartAltIcon sx={{ marginRight: "10px", fontSize: "30px", color: "#00005C" }} />
-                                <Typography sx={{ fontSize: "20px" }}>เล่นอีกครั้ง</Typography>
+                                <RestartAltIcon sx={{fontSize: "40px", color: "#00005C" }} />
                             </Box>
                         </CustomButtonContained>
                         <CustomButtonContained
-                            style={{ padding: "1rem 2rem", marginLeft: "20px" }}
+                            style={{ padding: "1rem", marginLeft: "20px" }}
                             variant="contained"
                             onClick={() => {
                                 setTotalScore(0);
@@ -183,8 +182,7 @@ const QuizResult = () => {
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
-                                <HomeIcon sx={{ marginRight: "10px", fontSize: "30px", color: "#600005C" }} />
-                                <Typography sx={{ fontSize: "20px" }}>กลับหน้าหลัก</Typography>
+                                <HomeIcon sx={{fontSize: "40px", color: "#600005C" }} />
                             </Box>
                         </CustomButtonContained>
                     </Box>
