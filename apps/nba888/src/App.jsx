@@ -20,6 +20,9 @@ export default function App() {
   const [profileAvatarIndex, setProfileAvatarIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
+  const [userAnswer,setUserAnswer] = useState([]);
+  const [quiz, setQuiz] = useState([]);
+  const [answerOrder, setAnswerOrder] = useState([]);
   return (
     <>
       <UserContext.Provider
@@ -31,7 +34,11 @@ export default function App() {
           score,
           setScore,
           totalScore,
-          setTotalScore
+          setTotalScore,
+          userAnswer,
+          setUserAnswer,
+          quiz,setQuiz,
+          answerOrder,setAnswerOrder
         }}
       >
         <Routes>

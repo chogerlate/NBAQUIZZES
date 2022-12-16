@@ -68,6 +68,10 @@ const QuizResult = () => {
         setScore,
         totalScore,
         setTotalScore,
+        userAnswer,
+        setUserAnswer,
+        quiz,setQuiz,
+        answerOrder, setAnswerOrder
     } = useContext(UserContext);
     useEffect(() => {
         if (!localStorage["playerName"]) {
@@ -79,7 +83,8 @@ const QuizResult = () => {
             setPlayerName(window.localStorage.getItem("playerName"));
             setProfileAvatarIndex(window.localStorage.getItem("playerAvatar"));
         }
-    }, []);
+        console.log("TEST:" + answerOrder);
+    }, [userAnswer]);
     const classes = useStyles();
     const [isSeeSolution, setIsSeeSolution] = useState(false);
     const [demoSeeSolution1,setDemoSeeSolution1]  = useState(false);
@@ -166,6 +171,9 @@ const QuizResult = () => {
                                 setTotalScore(0);
                                 setScore(0);
                                 navigate("/Quiz1");
+                                setQuiz([]);
+                                setUserAnswer([]);
+                                setAnswerOrder([]);
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
@@ -179,6 +187,9 @@ const QuizResult = () => {
                                 setTotalScore(0);
                                 setScore(0);
                                 navigate("/");
+                                setQuiz([]);
+                                setUserAnswer([]);
+                                setAnswerOrder([]);
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
@@ -200,23 +211,22 @@ const QuizResult = () => {
           <Typography sx={{ textAlign: "center", marginTop: "20px", fontSize: "26px", fontWeight: "600" }}>Solution</Typography>
           <Box sx={{ padding: "10px", }}>
             <Grid container sx={{ width: "100%", borderRadius: "5px"}}>
-                <Grid lg={12} sx={{padding:"20px",backgroundColor:"#FF9F9F",justifyContent:"space-between"
-                ,borderRadius:"5px",display:"flex",marginTop:"10px",cursor:"pointer"}} onClick={()=>{setDemoSeeSolution1(prev=>!prev)}}>
-                    <Box sx={{display:"flex"}}>
-                        <Typography>ข้อ 1 คำตอบของคุณ: </Typography>
-                        <Typography sx={{marginLeft:"20px"}}>2</Typography>
-                    </Box>
-                    {demoSeeSolution1 ?<ArrowDropUpIcon/>:<ArrowDropDownIcon/>}
-                </Grid>
-                {demoSeeSolution1 ?<Grid lg={12} sx={{backgroundColor:"#F8F8F8",padding:"20px",transition:"0.5s",borderRadius:"5px"}}>เฉลยคือ 4</Grid>:""}
-                <Grid lg={12} sx={{padding:"20px",backgroundColor:"#D9F8C4",justifyContent:"space-between"
-                ,borderRadius:"5px",display:"flex",marginTop:"10px"}}>
-                    <Box sx={{display:"flex"}}>
-                        <Typography>ข้อ 2 คำตอบของคุณ: </Typography>
-                        <Typography sx={{marginLeft:"20px"}}>Lebron James</Typography>
-                    </Box>
-                    <ArrowDropDownIcon/>
-                </Grid>
+                {quiz.map((element,index)=>{
+                    return(
+                        <Grid container sx={{width:"100%"}}>
+                            <Grid lg={12} sx={{padding:"20px",backgroundColor: userAnswer[index]==1?"#D9F8C4":"#F8C4B4",justifyContent:"space-between"
+                        ,borderRadius:"5px 5px 0 0",display:"flex",marginTop:"10px"}}>
+                            <Box sx={{display:"flex"}}>
+                                <Typography>ข้อ {index+1} คุณตอบ: {answerOrder[index]}</Typography>         
+                            </Box>
+                            
+                        </Grid>
+                        {<Grid lg={12} sx={{backgroundColor:"#F8F8F8",padding:"10px 20px",transition:"0.5s"
+                        ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>เฉลยคือ {element.choice_answer}</Grid>}
+                        </Grid>
+                    )
+                    }
+                )}
             </Grid>
           </Box>
         </Box>

@@ -140,7 +140,7 @@ function QuizzCard() {
                 </CardContent>
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
-                      <CustomButtonOutlined variant="contained" size="medium" onClick={()=>{navigate("/Quiz1")}}>
+                      <CustomButtonOutlined variant="contained" size="medium" onClick={()=>{navigate("/Quiz2")}}>
                         เกมตอบคำถามวัด IQ 
                       </CustomButtonOutlined>
                   </CardActions>
@@ -170,7 +170,7 @@ function QuizzCard() {
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
                     
-                      <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz2")}}>
+                      <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz3")}}>
                         แบบทดสอบประเมินสไตล์การเล่น
                       </CustomButtonContained>
                   </CardActions>

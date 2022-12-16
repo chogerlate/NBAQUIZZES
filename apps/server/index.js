@@ -35,7 +35,7 @@ function PrintData(data){
     ///console.log(data);
 }
 function getFromTable(res,questionType) {
-    let randomId = Math.floor(Math.random() * 15) + 1;
+    let randomId = Math.floor(Math.random() * 20) + 1;
     if(questionType==1){
         db.query(`SELECT * FROM question_general WHERE id = ${randomId}`, (err, results) => {
             var data = results[0];
@@ -63,10 +63,34 @@ function getFromTable(res,questionType) {
     
 }
 app.get("/quiz_question", (req, res, next) => {
-    const quizAmount = req.query["quizAmount"];
+    const quizType = req.query["randomQuestionType"];
+    const quizOrder = req.query["randomQuestionOrder"];
     let randomQuestionType = 0;
     randomQuestionType = Math.floor(Math.random() * 4) + 1;
-    TurnBackValue(res,randomQuestionType);
+    if(quizType==1){
+        db.query(`SELECT * FROM question_general WHERE id = ${quizOrder}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(quizType==2){
+        db.query(`SELECT * FROM question_easy WHERE id = ${quizOrder}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(quizType==3){
+        db.query(`SELECT * FROM question_hard WHERE id = ${quizOrder}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    }
+    if(quizType==4){
+        db.query(`SELECT * FROM question_bigfan WHERE id = ${quizOrder}`, (err, results) => {
+            var data = results[0];
+            res.json(data);
+        });
+    };
     console.log("SUCCESS");
 });
 app.listen("3008", () => {

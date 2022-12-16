@@ -93,8 +93,7 @@ const SubmitNameButton = styled(Button)(({ theme }) => ({
 
 const Quiz = () => {
   let navigate = useNavigate();
-  const [quiz, setQuiz] = useState([
-  ])
+  ///const [quiz, setQuiz] = useState([]);
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizAmount, setQuizAmount] = useState(5);
   const { playerName, 
@@ -104,9 +103,15 @@ const Quiz = () => {
     score,
     setScore,
     totalScore,
-  setTotalScore
+  setTotalScore,
+  userAnswer,
+  setUserAnswer,
+  quiz,setQuiz,
+  answerOrder,setAnswerOrder
+
 } = useContext(UserContext)
   const [countdownStartGame,setCountdownStartGame] = useState(5);
+  ///const [userAnswer,setUserAnswer] = useState([]);
   function OnStart() {
     getQuiz();
     setTimeout(function () {
@@ -130,8 +135,17 @@ const Quiz = () => {
     await FetchQuiz();
   }
   function FetchQuiz() {
+    let generateNumbers = [];
+    let generateQuestionType = [];
     for (let i = 0; i < quizAmount; i++) {
-      axios.get("http://localhost:3008/quiz_question", { params: { quizAmount } }).then(response => {
+      let randomQuestionOrder = Math.floor(Math.random() * 20) + 1;
+      while(generateNumbers.includes(randomQuestionOrder)){
+        randomQuestionOrder = Math.floor(Math.random() * 20) + 1;
+      }
+      let randomQuestionType = Math.floor(Math.random() * 4) + 1;
+      generateNumbers.push(randomQuestionOrder);
+      console.log(generateNumbers);
+      axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,randomQuestionType} }).then(response => {
         setQuiz(quiz => [...quiz, response.data])
       })
     }
@@ -140,13 +154,12 @@ const Quiz = () => {
     if (quizIndex + 1 < quiz.length) {
       setQuizIndex(quizIndex + 1);
     }
-    if (quizIndex + 1 == quiz.length) {
-      console.log("End of Play");
-      setTotalScore(quiz.length);
-      navigate("/Quiz1_Result");
-    }
-    if(quizIndex){
-
+    if (quizIndex + 1 >= quiz.length) {
+      setTimeout(function () {
+        console.log("End of Play");
+        setTotalScore(quiz.length);
+        navigate("/Quiz1_Result");
+      }, 1000);
     }
   }
 
@@ -154,7 +167,14 @@ const Quiz = () => {
     let solution = quiz[quizIndex].choice_answer;
     if (answer == solution) {
       setScore(score + 1);
+      setUserAnswer(userAnswer => [...userAnswer , 1])
+      //userAnswer.push("1");
     }
+    else{
+      setUserAnswer(userAnswer => [...userAnswer , 0])
+      //userAnswer.push("0");
+    }
+    setAnswerOrder(answerOrder => [...answerOrder,answer]);
     setTimeout(function () {
       NextQuiz();
     }, 500);
