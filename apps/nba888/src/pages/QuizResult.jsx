@@ -76,7 +76,11 @@ const QuizResult = () => {
         setUserAnswer,
         quiz,setQuiz,
         answerOrder, setAnswerOrder,
-        toggleSolution, setToggleSolution
+        toggleSolution, setToggleSolution,
+        countdownStartGame,setCountdownStartGame,
+        quizIndex,setQuizIndex,
+        isCanStart, setIscanStart,
+        isPlaying,setIsPlaying
     } = useContext(UserContext);
     useEffect(() => {
         if (!localStorage["playerName"]) {
@@ -180,6 +184,10 @@ const QuizResult = () => {
                                 setQuiz([]);
                                 setUserAnswer([]);
                                 setAnswerOrder([]);
+                                setCountdownStartGame(5);
+                                setQuizIndex(-1);
+                                setIscanStart(false);
+                                setIsPlaying(false);
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
@@ -196,6 +204,10 @@ const QuizResult = () => {
                                 setQuiz([]);
                                 setUserAnswer([]);
                                 setAnswerOrder([]);
+                                setCountdownStartGame(5);
+                                setQuizIndex(-1);
+                                setIscanStart(false);
+                                setIsPlaying(false);
                             }}
                         >
                             <Box sx={{ display: "flex" }}>
@@ -242,14 +254,17 @@ const QuizResult = () => {
                             setToggleSolution(newToggleList);
                             //console.log("HELLO")
                         }}>
-                            <Box sx={{display:"flex"}}>
-                                <Typography>ข้อ {index+1} คุณตอบ: {answerOrder[index]}</Typography>         
+                            <Box sx={{display:"flex",flexDirection:"column"}}>
+                                <Typography>ข้อ {index+1} คุณตอบ: {answerOrder[index]}</Typography> 
+                                        
                             </Box>
                             {toggleSolution[index] ? <ArrowDropUpIcon sx={{position:"absolute",right:"30px",fontSize:"30px",color: userAnswer[index]==1?"#5F8D4E":"#CE7777"}}/>
                             :<ArrowDropDownIcon sx={{position:"absolute",right:"30px",fontSize:"30px",color: userAnswer[index]==1?"#5F8D4E":"#CE7777"}}/>}
                         </Grid>
                         {toggleSolution[index] ?<Grid lg={12} sx={{backgroundColor:"#F8F8F8",padding:"10px 20px",transition:"0.5s"
-                        ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>เฉลยคือ {element.choice_answer}
+                        ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>
+                            <Typography>โจทย์: {quiz[index].question}</Typography> 
+                            เฉลยคือ {element.choice_answer}
                         <img src={element.image_url} className={classes.imageQuiz}/></Grid>:""}
                         </Grid>
                     )

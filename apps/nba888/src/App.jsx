@@ -29,6 +29,9 @@ export default function App() {
   const [timerAnimation,setTimerAnimation] = useState(0);
   const [isMute, setIsMute] = useState(false);
   const [toggleSolution,setToggleSolution] = useState([]);
+  const[countdownStartGame, setCountdownStartGame] = useState(5);
+  const [isCanStart, setIscanStart] = useState(false);
+  const [isPlaying,setIsPlaying] = useState(false);
   return (
     <>
       <UserContext.Provider
@@ -50,7 +53,10 @@ export default function App() {
           quizIndex,setQuizIndex,
           timerAnimation,setTimerAnimation,
           isMute,setIsMute,
-          toggleSolution, setToggleSolution
+          toggleSolution, setToggleSolution,
+          countdownStartGame, setCountdownStartGame,
+          isCanStart, setIscanStart,
+          isPlaying,setIsPlaying
         }}
       >
 

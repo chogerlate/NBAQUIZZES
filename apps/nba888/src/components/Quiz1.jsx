@@ -11,6 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { ProfileAvatarStore } from "./AvatarStore";
+import { AudioStore } from "./AudioStore";
 import BrainImage from "../assets/brain.png"
 import FastImage from "../assets/fast-time.png"
 import ThinkImage from "../assets/thinking.png"
@@ -111,31 +112,25 @@ const Quiz = () => {
   timer,setTimer,
   quizIndex, setQuizIndex,
   timerAnimation,setTimerAnimation,
-  toggleSolution, setToggleSolution
+  toggleSolution, setToggleSolution,
+  countdownStartGame, setCountdownStartGame,
+  isCanStart, setIscanStart,
+  isPlaying,setIsPlaying
 
 } = useContext(UserContext)
-  const [countdownStartGame,setCountdownStartGame] = useState(5);
   ///const [userAnswer,setUserAnswer] = useState([]);
   function OnStart() {
+    setIsPlaying(true);
+    setCountdownStartGame(5);
     if(quizLevel!=""){
       getQuiz();
-    setTimeout(function () {
-      setIscanStart(true);
+      setTimeout(function () {
       setQuizIndex(0);
+      setIscanStart(true);
+      setIsPlaying(false);
+      new Audio(AudioStore[2].path).play();
       //setQuizIndex(0);
     }, 6000);
-    let i = 0;
-    let myInterval = setInterval(()=>{
-      if(countdownStartGame>0){
-        setCountdownStartGame(countdownStartGame=>countdownStartGame-1);
-      }
-      else{
-        setCountdownStartGame(0);
-      }
-    },1000)
-    return()=>{
-      clearInterval(myInterval);
-    }
     }
     else{
       window.alert("โปรดเลือกระดับความยาก");
@@ -171,6 +166,24 @@ const Quiz = () => {
       OnQuizSubmitAnswer("ไม่ได้ตอบ");
     }
   },[timer])
+  useEffect(()=>{
+    var count=0;
+    if(countdownStartGame>0){
+      //new Audio(AudioStore[1].path).play();
+      if(isPlaying){
+        //console.log(count);
+        let myInterval = setInterval(()=>{
+          //console.log("HELLO: " + countdownStartGame
+          new Audio(AudioStore[1].path).play();   
+          setCountdownStartGame(prev=>prev-1);
+          
+          },1000)
+          return()=>{
+            clearInterval(myInterval);
+          }
+      }
+    }
+  },[isPlaying])
   function FetchQuiz() {
     let generateNumbers = [];
     var newCountdownArray=[];
@@ -286,7 +299,6 @@ const Quiz = () => {
   function HandlePlayerName(e) {
     setPlayerNameChanging(e.target.value);
   }
-  const [isCanStart, setIscanStart] = useState(false);
   useEffect(() => {
     if (!localStorage["playerName"]) {
       window.localStorage.setItem("playerName", "");
