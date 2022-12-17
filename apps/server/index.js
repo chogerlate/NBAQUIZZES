@@ -63,18 +63,18 @@ function getFromTable(res,questionType) {
     
 }
 app.get("/quiz_question", (req, res, next) => {
-    const quizType = req.query["randomQuestionType"];
+    const quizType = req.query["QuestionType"];
     const quizOrder = req.query["randomQuestionOrder"];
     let randomQuestionType = 0;
     randomQuestionType = Math.floor(Math.random() * 4) + 1;
     if(quizType==1){
-        db.query(`SELECT * FROM question_general WHERE id = ${quizOrder}`, (err, results) => {
+        db.query(`SELECT * FROM question_easy WHERE id = ${quizOrder}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });
     }
     if(quizType==2){
-        db.query(`SELECT * FROM question_easy WHERE id = ${quizOrder}`, (err, results) => {
+        db.query(`SELECT * FROM question_general WHERE id = ${quizOrder}`, (err, results) => {
             var data = results[0];
             res.json(data);
         });

@@ -94,7 +94,6 @@ const SubmitNameButton = styled(Button)(({ theme }) => ({
 const Quiz = () => {
   let navigate = useNavigate();
   ///const [quiz, setQuiz] = useState([]);
-  const [quizIndex, setQuizIndex] = useState(0);
   const [quizAmount, setQuizAmount] = useState(5);
   const { playerName, 
     setPlayerName, 
@@ -107,20 +106,27 @@ const Quiz = () => {
   userAnswer,
   setUserAnswer,
   quiz,setQuiz,
-  answerOrder,setAnswerOrder
+  answerOrder,setAnswerOrder,
+  countdownQuizTime,setCountdownQuizTime,
+  timer,setTimer,
+  quizIndex, setQuizIndex,
+  timerAnimation,setTimerAnimation
 
 } = useContext(UserContext)
   const [countdownStartGame,setCountdownStartGame] = useState(5);
   ///const [userAnswer,setUserAnswer] = useState([]);
   function OnStart() {
-    getQuiz();
+    if(quizLevel!=""){
+      getQuiz();
     setTimeout(function () {
       setIscanStart(true);
+      setQuizIndex(0);
+      //setQuizIndex(0);
     }, 6000);
     let i = 0;
     let myInterval = setInterval(()=>{
       if(countdownStartGame>0){
-        setCountdownStartGame(count=>count-1);
+        setCountdownStartGame(countdownStartGame=>countdownStartGame-1);
       }
       else{
         setCountdownStartGame(0);
@@ -129,55 +135,140 @@ const Quiz = () => {
     return()=>{
       clearInterval(myInterval);
     }
+    }
+    else{
+      window.alert("โปรดเลือกระดับความยาก");
+    }
   }
-
   async function getQuiz() {
+    //setCountdownQuiz(10);
     await FetchQuiz();
   }
+  useEffect(()=>{
+    console.log("เวลาของข้อนี้​:"+ countdownQuizTime[quizIndex]);
+    setTimer(countdownQuizTime[quizIndex]);
+    setTimerAnimation(countdownQuizTime[quizIndex]);
+    let quizInterval = setInterval(()=>{
+      setTimer(timer=>timer-1)
+    },1000)
+    return()=>{
+      clearInterval(quizInterval);
+    }
+  },[quizIndex])
+  useEffect(()=>{
+    if(quizIndex<quizAmount){
+    let quizInterval = setInterval(()=>{
+      setTimerAnimation(timerAnimation=>timerAnimation-0.1)
+    },100)
+    return()=>{
+      clearInterval(quizInterval);
+    }
+    }
+  },[quizIndex])
+  useEffect(()=>{
+    if(timer==0 && isCanStart){
+      OnQuizSubmitAnswer("");
+    }
+  },[timer])
   function FetchQuiz() {
     let generateNumbers = [];
-    let generateQuestionType = [];
+    var newCountdownArray=[];
     for (let i = 0; i < quizAmount; i++) {
+      console.log(quizLevel);
       let randomQuestionOrder = Math.floor(Math.random() * 20) + 1;
       while(generateNumbers.includes(randomQuestionOrder)){
         randomQuestionOrder = Math.floor(Math.random() * 20) + 1;
       }
-      let randomQuestionType = Math.floor(Math.random() * 4) + 1;
-      generateNumbers.push(randomQuestionOrder);
-      console.log(generateNumbers);
-      axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,randomQuestionType} }).then(response => {
+      if(quizLevel=="Random"){
+        let randomQuestionType = Math.floor(Math.random() * 4) + 1;
+        let QuestionType = randomQuestionType;
+        //generateNumbers.push(randomQuestionOrder);
+        //console.log(generateNumbers);
+        axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,QuestionType} }).then(response => {
+          setQuiz(quiz => [...quiz, response.data])
+          ///console.log(response.data.time);
+          ///newCountdownArray.push(response.data.time);
+          setCountdownQuizTime(current=>[...current,response.data.time]);
+        //setCountdownQuizTime(newCountdownArray);
+        //console.log(countdownQuizTime);
+          //console.log(countdownQuizTime[i]);
+        })
+      }
+      if(quizLevel=="Easy"){
+        let QuestionType = 1;
+        axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,QuestionType} }).then(response => {
         setQuiz(quiz => [...quiz, response.data])
+        setCountdownQuizTime(current=>[...current,response.data.time]);
+        //newCountdownArray=[];
+        
       })
+      }
+      if(quizLevel=="General"){
+        let QuestionType = 2;
+          axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,QuestionType} }).then(response => {
+          setQuiz(quiz => [...quiz, response.data])
+          setCountdownQuizTime(current=>[...current,response.data.time]);
+        })
+      }
+      if(quizLevel=="Hard"){
+        let QuestionType = 3;
+          axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,QuestionType} }).then(response => {
+          setQuiz(quiz => [...quiz, response.data])
+          setCountdownQuizTime(current=>[...current,response.data.time]);
+        })
+      }
+      if(quizLevel=="BigFan"){
+        let QuestionType = 4;
+          axios.get("http://localhost:3008/quiz_question", { params: { randomQuestionOrder ,QuestionType} }).then(response => {
+          setQuiz(quiz => [...quiz, response.data])
+          setCountdownQuizTime(current=>[...current,response.data.time]);
+        })
+      }
+      generateNumbers.push(randomQuestionOrder);
     }
+    setCountdownQuizTime(newCountdownArray);
+    console.log(newCountdownArray);
+    //newCountdownArray=[];
   }
-  function NextQuiz() {
+  function NextQuiz(){
     if (quizIndex + 1 < quiz.length) {
-      setQuizIndex(quizIndex + 1);
+      setTimeout(function () {
+        setQuizIndex(quizIndex + 1);
+      }, 500);
     }
-    if (quizIndex + 1 >= quiz.length) {
+    if (quizIndex + 1 == quiz.length) {
       setTimeout(function () {
         console.log("End of Play");
         setTotalScore(quiz.length);
         navigate("/Quiz1_Result");
+        setCountdownQuizTime([]);
       }, 1000);
     }
+    //getCountdownQuiz();
   }
 
   function OnQuizSubmitAnswer(answer) {
+    var tempAnswer;
+    tempAnswer = answer;
+    console.log(tempAnswer);
+    //getCountdownQuiz();
     let solution = quiz[quizIndex].choice_answer;
     if (answer == solution) {
       setScore(score + 1);
       setUserAnswer(userAnswer => [...userAnswer , 1])
+      setAnswerOrder(answerOrder => [...answerOrder,answer]);
       //userAnswer.push("1");
     }
     else{
       setUserAnswer(userAnswer => [...userAnswer , 0])
+      setAnswerOrder(answerOrder => [...answerOrder,answer]);
       //userAnswer.push("0");
     }
-    setAnswerOrder(answerOrder => [...answerOrder,answer]);
+    //setAnswerOrder(answerOrder => [...answerOrder,answer]);
     setTimeout(function () {
       NextQuiz();
     }, 500);
+    //countdownQuiz();
   }
   function SubmitPlayerName() {
     localStorage.setItem("playerName", playerNameChanging);
@@ -210,6 +301,11 @@ const Quiz = () => {
   const [isEditingAvatar, setIsEditingAvatar] = useState(false);
   const [quizLevel, setQuizLevel] = useState("");
   const [isSelectQuizLevel, setIsSelectQuizLevel] = useState(false);
+  useEffect(() => {
+    console.log()
+  },[quizIndex]);
+
+
   return (
     <Box sx={{ width: "100%" }}>
 
@@ -376,6 +472,7 @@ const Quiz = () => {
               {quizIndex + 1}/{quiz.length}
             </Typography> : ""}
             <Grid container sx={{ width: "100%", textAlign: "center" }}>
+              <Typography sx={{fontSize:"20px",textAlign:"center"}}>{timer}</Typography>
               <Grid item xl={12} lg={12} md={12} sx={{ width: "100%", borderRadius: "20px 20px 0 0", borderBottom: "1px solid #E5E4E2", padding: "0 0 10px 0" }}>
                 <Typography sx={{ fontSize: "24px", textAlign: "center" }}>
                   {quizIndex + 1}.) {quiz[quizIndex].question}

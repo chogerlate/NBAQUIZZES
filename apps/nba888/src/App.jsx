@@ -23,6 +23,10 @@ export default function App() {
   const [userAnswer,setUserAnswer] = useState([]);
   const [quiz, setQuiz] = useState([]);
   const [answerOrder, setAnswerOrder] = useState([]);
+  const [countdownQuizTime,setCountdownQuizTime] = useState([]);
+  const [quizIndex, setQuizIndex] = useState(-1);
+  const [timer,setTimer] = useState(0);
+  const [timerAnimation,setTimerAnimation] = useState(0);
   return (
     <>
       <UserContext.Provider
@@ -38,7 +42,11 @@ export default function App() {
           userAnswer,
           setUserAnswer,
           quiz,setQuiz,
-          answerOrder,setAnswerOrder
+          answerOrder,setAnswerOrder,
+          countdownQuizTime,setCountdownQuizTime,
+          timer,setTimer,
+          quizIndex,setQuizIndex,
+          timerAnimation,setTimerAnimation
         }}
       >
         <Routes>

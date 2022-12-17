@@ -83,7 +83,8 @@ const QuizResult = () => {
             setPlayerName(window.localStorage.getItem("playerName"));
             setProfileAvatarIndex(window.localStorage.getItem("playerAvatar"));
         }
-        console.log("TEST:" + answerOrder);
+        console.log("TEST 1:" + answerOrder);
+        console.log("TEST 2:" + userAnswer);
     }, [userAnswer]);
     const classes = useStyles();
     const [isSeeSolution, setIsSeeSolution] = useState(false);
@@ -208,7 +209,7 @@ const QuizResult = () => {
       >
         <Box sx={{ width: "60vh", height: "100%", position: "relative" }}>
         
-          <Typography sx={{ textAlign: "center", marginTop: "20px", fontSize: "26px", fontWeight: "600" }}>Solution</Typography>
+          <Typography sx={{ textAlign: "center", marginTop: "20px", fontSize: "30px", fontWeight: "600" }}>เฉลย</Typography>
           <Box sx={{ padding: "10px", }}>
             <Grid container sx={{ width: "100%", borderRadius: "5px"}}>
                 {quiz.map((element,index)=>{
