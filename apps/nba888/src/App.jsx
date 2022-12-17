@@ -27,6 +27,8 @@ export default function App() {
   const [quizIndex, setQuizIndex] = useState(-1);
   const [timer,setTimer] = useState(0);
   const [timerAnimation,setTimerAnimation] = useState(0);
+  const [isMute, setIsMute] = useState(false);
+  const [toggleSolution,setToggleSolution] = useState([]);
   return (
     <>
       <UserContext.Provider
@@ -46,9 +48,12 @@ export default function App() {
           countdownQuizTime,setCountdownQuizTime,
           timer,setTimer,
           quizIndex,setQuizIndex,
-          timerAnimation,setTimerAnimation
+          timerAnimation,setTimerAnimation,
+          isMute,setIsMute,
+          toggleSolution, setToggleSolution
         }}
       >
+
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />

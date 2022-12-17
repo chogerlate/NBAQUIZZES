@@ -110,7 +110,8 @@ const Quiz = () => {
   countdownQuizTime,setCountdownQuizTime,
   timer,setTimer,
   quizIndex, setQuizIndex,
-  timerAnimation,setTimerAnimation
+  timerAnimation,setTimerAnimation,
+  toggleSolution, setToggleSolution
 
 } = useContext(UserContext)
   const [countdownStartGame,setCountdownStartGame] = useState(5);
@@ -167,7 +168,7 @@ const Quiz = () => {
   },[quizIndex])
   useEffect(()=>{
     if(timer==0 && isCanStart){
-      OnQuizSubmitAnswer("");
+      OnQuizSubmitAnswer("ไม่ได้ตอบ");
     }
   },[timer])
   function FetchQuiz() {
@@ -264,6 +265,7 @@ const Quiz = () => {
       setAnswerOrder(answerOrder => [...answerOrder,answer]);
       //userAnswer.push("0");
     }
+    setToggleSolution(toggleSolution=>[...toggleSolution, false])
     //setAnswerOrder(answerOrder => [...answerOrder,answer]);
     setTimeout(function () {
       NextQuiz();
@@ -472,7 +474,6 @@ const Quiz = () => {
               {quizIndex + 1}/{quiz.length}
             </Typography> : ""}
             <Grid container sx={{ width: "100%", textAlign: "center" }}>
-              <Typography sx={{fontSize:"20px",textAlign:"center"}}>{timer}</Typography>
               <Grid item xl={12} lg={12} md={12} sx={{ width: "100%", borderRadius: "20px 20px 0 0", borderBottom: "1px solid #E5E4E2", padding: "0 0 10px 0" }}>
                 <Typography sx={{ fontSize: "24px", textAlign: "center" }}>
                   {quizIndex + 1}.) {quiz[quizIndex].question}

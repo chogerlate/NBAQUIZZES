@@ -37,6 +37,10 @@ const useStyles = makeStyles({
         width: "150px",
         marginLeft: "auto",
         marginRight: "auto"
+    },
+    imageQuiz:{
+        borderRadius:"5px",
+        marginTop:"10px"
     }
 });
 const CustomButtonContained = styled(Button)(({ theme }) => ({
@@ -71,7 +75,8 @@ const QuizResult = () => {
         userAnswer,
         setUserAnswer,
         quiz,setQuiz,
-        answerOrder, setAnswerOrder
+        answerOrder, setAnswerOrder,
+        toggleSolution, setToggleSolution
     } = useContext(UserContext);
     useEffect(() => {
         if (!localStorage["playerName"]) {
@@ -216,14 +221,36 @@ const QuizResult = () => {
                     return(
                         <Grid container sx={{width:"100%"}}>
                             <Grid lg={12} sx={{padding:"20px",backgroundColor: userAnswer[index]==1?"#D9F8C4":"#F8C4B4",justifyContent:"space-between"
-                        ,borderRadius:"5px 5px 0 0",display:"flex",marginTop:"10px"}}>
+                        ,borderRadius:toggleSolution[index] ? "5px 5px 0 0" : "5px",display:"flex",cursor:"pointer",marginTop:"10px"
+                        ,transition:"0.5s"}} onClick={()=>{
+                            var newToggleList=[];
+                            if(toggleSolution[index]){
+                                for(var i=0;i<toggleSolution.length;i++){
+                                    newToggleList[i]=false;
+                                }
+                            }
+                            else{
+                                for(var i=0;i<toggleSolution.length;i++){
+                                    if(i==index){
+                                        newToggleList[i] = true;
+                                    }
+                                    else{
+                                        newToggleList[i] = false;
+                                    }
+                                }
+                            }
+                            setToggleSolution(newToggleList);
+                            //console.log("HELLO")
+                        }}>
                             <Box sx={{display:"flex"}}>
                                 <Typography>ข้อ {index+1} คุณตอบ: {answerOrder[index]}</Typography>         
                             </Box>
-                            
+                            {toggleSolution[index] ? <ArrowDropUpIcon sx={{position:"absolute",right:"30px",fontSize:"30px",color: userAnswer[index]==1?"#5F8D4E":"#CE7777"}}/>
+                            :<ArrowDropDownIcon sx={{position:"absolute",right:"30px",fontSize:"30px",color: userAnswer[index]==1?"#5F8D4E":"#CE7777"}}/>}
                         </Grid>
-                        {<Grid lg={12} sx={{backgroundColor:"#F8F8F8",padding:"10px 20px",transition:"0.5s"
-                        ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>เฉลยคือ {element.choice_answer}</Grid>}
+                        {toggleSolution[index] ?<Grid lg={12} sx={{backgroundColor:"#F8F8F8",padding:"10px 20px",transition:"0.5s"
+                        ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>เฉลยคือ {element.choice_answer}
+                        <img src={element.image_url} className={classes.imageQuiz}/></Grid>:""}
                         </Grid>
                     )
                     }

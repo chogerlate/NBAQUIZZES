@@ -6,10 +6,13 @@ import { UserContext } from "../App";
 import Ads1 from "../assets/ads1.gif"
 import Ads2 from "../assets/ads2.gif"
 import HomeIcon from '@mui/icons-material/Home';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import { SetMealOutlined } from "@mui/icons-material";
 // import bgimg from "../../public/images/bgimg.png";
 
 const Layout = () => {
-  const {playerName,countdownQuizTime,timer,setTimer,quizIndex,timerAnimation,setTimerAnimation}= useContext(UserContext);
+  const {playerName,countdownQuizTime,timer,setTimer,quizIndex,timerAnimation,setTimerAnimation,isMute,setIsMute}= useContext(UserContext);
   const [openAds1,setOpenAds1] = useState(true);
   const [openAds2,setOpenAds2] = useState(true);
   let navigate = useNavigate();
@@ -37,10 +40,19 @@ const Layout = () => {
     </Box>:""}*/}
       <Box sx={{width: quizIndex>=0 ?`${(timerAnimation / countdownQuizTime[quizIndex]) * 100}%` :"",height:"15px",backgroundColor:"#e06060"
       ,position:"absolute",zIndex:"5",transition:"0.5s"}}></Box>
-      <HomeIcon sx={{fontSize:"60px",position:"absolute",left:"30px",top:"20px",color:"white",cursor:"pointer",zIndex:openAds1?"2":"5"}} 
+      <Box sx={{zIndex:openAds1?"2":"5",position:"absolute",left:"30px",top:"20px",display:"flex"}}>
+      <HomeIcon sx={{fontSize:"40px",color:"white",cursor:"pointer"}} 
       onClick={()=>{
         navigate("/");
       }}/>
+      {isMute?<VolumeOffIcon sx={{fontSize:"40px",color:"white",cursor:"pointer",marginLeft:"20px"}} 
+      onClick={()=>{
+        setIsMute(isMute=>!isMute);
+      }}/>:<VolumeUpIcon sx={{fontSize:"40px",color:"white",cursor:"pointer",marginLeft:"20px"}} 
+      onClick={()=>{
+        setIsMute(isMute=>!isMute);
+      }}/>}
+      </Box>
       <Typography sx={{fontSize:"30px",position:"absolute",right:"30px",top:"20px",color:"white"}}>{playerName}</Typography>
       <Navbar />
       <Outlet />

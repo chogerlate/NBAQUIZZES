@@ -62,7 +62,7 @@ function QuizzCard() {
       <Grid
         sx={{
           flexGrow: 1,
-          marginTop: 5,
+          marginTop: 1,
         }}
         container
         spacing={0}
