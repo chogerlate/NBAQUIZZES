@@ -10,6 +10,8 @@ import QuizResult from "./pages/QuizResult";
 import QuizResultNBA from "./pages/QuizResultNBA";
 import { AudioStore } from "./components/AudioStore";
 import Quiz2 from "./components/Quiz2";
+import Quiz3 from "./components/Quiz3";
+import QuizResultVDO from "./pages/QuizResultVDO";
 
 export const UserContext = createContext();
 
@@ -92,8 +94,10 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="Quiz1" element={<Quizz1 />} />
             <Route path="Quiz2" element={<Quiz2/>} />
+            <Route path="Quiz3" element={<Quiz3/>} />
             <Route path="Quiz1_Result" element={<QuizResult />} />
             <Route path="Quiz2_Result" element={<QuizResultNBA/>} />
+            <Route path="Quiz3_Result" element={<QuizResultVDO/>} />
             <Route path="*" element={<Nopage />} />
           </Route>
         </Routes>

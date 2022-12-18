@@ -115,39 +115,6 @@ function QuizzCard() {
                 </StyledToolbar>
               </Card>
             </Grid>
-            {/*
-            <Grid item>
-              <Card
-                sx={{ maxWidth: {xl:500,lg:400}, borderRadius: "16px", height: "32rem" }}
-              >
-                <CardMedia
-                  component="img"
-                  alt="tbate"
-                  height="140"
-                
-                  image="https://staticg.sportskeeda.com/editor/2017/12/e45ca-1513870886-800.jpg"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    ทดสอบ IQ ในการเล่นบาสของคุณ
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    ในเกมนี้เราจะให้ผู้ใช้งานได้ทำการเล่นเกมตอบคำถาม
-                    ที่มีความเกี่ยวข้องกับกีฬาการแข่งขัน NBA
-                    โดยจะมีการแบ่งออกเป็น
-                    ระดับความยากที่แตกต่างกันตั้งแต่ระดับง่ายสุดไปจนถึงระดับแฟนตัวยง
-                    มาวัดความรู้ NBA ของคุณกันนน!!!
-                  </Typography>
-                </CardContent>
-                <StyledToolbar sx={{ width: "100%" }}>
-                  <CardActions>
-                      <CustomButtonOutlined variant="contained" size="medium" onClick={()=>{navigate("/Quiz2")}}>
-                        เกมตอบคำถามวัด IQ 
-                      </CustomButtonOutlined>
-                  </CardActions>
-                </StyledToolbar>
-              </Card>
-            </Grid> */}
             <Grid item >
               <Card
                 sx={{ maxWidth: {xl:500,lg:400}, borderRadius: "16px", height: "32rem" }}
@@ -174,6 +141,38 @@ function QuizzCard() {
                       <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz2")}}>
                         แบบทดสอบประเมินสไตล์การเล่น
                       </CustomButtonContained>
+                  </CardActions>
+                </StyledToolbar>
+              </Card>
+            </Grid>
+            <Grid item>
+              <Card
+                sx={{ maxWidth: {xl:500,lg:400}, borderRadius: "16px", height: "32rem" }}
+              >
+                <CardMedia
+                  component="img"
+                  alt="tbate"
+                  height="140"
+                
+                  image="https://staticg.sportskeeda.com/editor/2017/12/e45ca-1513870886-800.jpg"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    ทดสอบ Sense ในการเล่นบาส
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    ในเกมนี้เราจะให้ผู้ใช้งานได้ทำการเล่นเกมตอบคำถาม
+                    ที่มีความเกี่ยวข้องกับกีฬาการแข่งขัน NBA
+                    โดยจะมีการแบ่งออกเป็น
+                    ระดับความยากที่แตกต่างกันตั้งแต่ระดับง่ายสุดไปจนถึงระดับแฟนตัวยง
+                    มาวัดความรู้ NBA ของคุณกันนน!!!
+                  </Typography>
+                </CardContent>
+                <StyledToolbar sx={{ width: "100%" }}>
+                  <CardActions>
+                      <CustomButtonOutlined variant="contained" size="medium" onClick={()=>{navigate("/Quiz3")}}>
+                        เกมตอบคำถามวัด IQ 
+                      </CustomButtonOutlined>
                   </CardActions>
                 </StyledToolbar>
               </Card>

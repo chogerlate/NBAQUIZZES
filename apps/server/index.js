@@ -98,6 +98,15 @@ app.get("/predict_question", (req, res, next) => {
     //player_physical_skills
 });
 
+app.get("/quiz_vdo", (req, res, next) => {
+    db.query(`SELECT * FROM question_nextplay`, (err, results) => {
+        //console.log(results);
+        res.json(results);
+    });
+    console.log("SUCCESS");
+    //player_physical_skills
+});
+
 app.get("/player_info", (req, res, next) => {
     const position = req.query["position"];
     db.query(`SELECT * FROM nba_player_info WHERE position = ${`'${position}'`} `, (err, results) => {

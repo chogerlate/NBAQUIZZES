@@ -143,22 +143,22 @@ const QuizResultNBA = () => {
                 ,marginRight:"auto"}}>
                     <Box sx={{width:"100%",height:"90%",position:"relative"}}>
                     {/*labels:["Points","Rebounds","Assists","FG%","FG3%","FT%"] 1 2 3 4 5 6 */}
-                        <Typography sx={{fontSize:"16px",position:"absolute",left:"45%",top:"25px"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"45%",top:"25px",color:"#692A9B",fontWeight:"600"}}>
                             Points
                         </Typography>
-                        <Typography sx={{fontSize:"16px",position:"absolute",top:"25%",right:"0",zIndex:"5"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",top:"25%",right:"-10px",zIndex:"5",color:"#692A9B",fontWeight:"600"}}>
                             Rebounds
                         </Typography>
-                        <Typography sx={{fontSize:"16px",position:"absolute",top:"75%",right:"20px",zIndex:"5"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",top:"75%",right:"0",zIndex:"5",color:"#692A9B",fontWeight:"600"}}>
                             Assists
                         </Typography>
-                        <Typography sx={{fontSize:"16px",position:"absolute",left:"45%",bottom:"0",zIndex:"5"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"47%",bottom:"0",zIndex:"5",color:"#692A9B",fontWeight:"600"}}>
                             FG%
                         </Typography>
-                        <Typography sx={{fontSize:"16px",position:"absolute",left:"30px",top:"75%",zIndex:"5"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"20px",top:"75%",zIndex:"5",color:"#692A9B",fontWeight:"600"}}>
                             FG3%
                         </Typography>
-                        <Typography sx={{fontSize:"16px",position:"absolute",left:"30px",top:"25%",zIndex:"5"}}>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"30px",top:"25%",zIndex:"5",color:"#692A9B",fontWeight:"600"}}>
                             FT%
                         </Typography>
                         <Radar data={chartData} options={options}/>

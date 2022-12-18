@@ -36,6 +36,7 @@
     "mysql2": "^2.3.3",
     "react-howler": "^5.2.0",
     "react-router-dom": "^6.4.3",
+    "react-youtube": "^10.1.0",
     "styled-components": "^5.3.6"
   },
   "packageManager": "npm@8.19.2"
