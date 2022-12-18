@@ -15,6 +15,7 @@ import { AudioStore } from "./AudioStore";
 import BrainImage from "../assets/brain.png"
 import FastImage from "../assets/fast-time.png"
 import ThinkImage from "../assets/thinking.png"
+import ReactHowler from "react-howler"
 const useStyles = makeStyles({
   container: {
     display: 'flex',
@@ -115,9 +116,17 @@ const Quiz = () => {
   toggleSolution, setToggleSolution,
   countdownStartGame, setCountdownStartGame,
   isCanStart, setIscanStart,
-  isPlaying,setIsPlaying
+  isPlaying,setIsPlaying,
+  isPlayingHomeMusic, setIsPlayingHomeMusic
 
 } = useContext(UserContext)
+const HomeMusic = new ReactHowler(
+  {
+    src: AudioStore[0].path,
+    html5: true,
+  } 
+);
+
   ///const [userAnswer,setUserAnswer] = useState([]);
   function OnStart() {
     setIsPlaying(true);
@@ -128,7 +137,9 @@ const Quiz = () => {
       setQuizIndex(0);
       setIscanStart(true);
       setIsPlaying(false);
+      setIsPlayingHomeMusic(false);
       new Audio(AudioStore[2].path).play();
+      new Audio(AudioStore[0].path).muted();
       //setQuizIndex(0);
     }, 6000);
     }
@@ -496,7 +507,10 @@ const Quiz = () => {
                 <img src={quiz[quizIndex].image_url} className={classes.quizImage} />
               </Grid>
               <Grid container sx={{ width: "100%", marginTop: "20px" }}>
-                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px"}} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_1) }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px"}} onClick={() => { 
+                  new Audio(AudioStore[3].path).play(); 
+                  OnQuizSubmitAnswer(quiz[quizIndex].choice_1)
+                   }}>
                   <Box sx={{
                     width: "100%", height: "100%", display: "flex", justifyContent: "center"
                     , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
@@ -506,7 +520,10 @@ const Quiz = () => {
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_1}</Typography>
                   </Box>
                 </Grid>
-                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_2) }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { 
+                  new Audio(AudioStore[3].path).play(); 
+                  OnQuizSubmitAnswer(quiz[quizIndex].choice_2) 
+                  }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
                     , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
@@ -516,7 +533,10 @@ const Quiz = () => {
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_2}</Typography>
                   </Box>
                 </Grid>
-                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_3) }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { 
+                  new Audio(AudioStore[3].path).play(); 
+                  OnQuizSubmitAnswer(quiz[quizIndex].choice_3) 
+                  }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
                     , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{
@@ -526,7 +546,10 @@ const Quiz = () => {
                     <Typography sx={{ fontSize: "24px", color: "black" }}>{quiz[quizIndex].choice_3}</Typography>
                   </Box>
                 </Grid>
-                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { OnQuizSubmitAnswer(quiz[quizIndex].choice_4) }}>
+                <Grid xl={6} lg={6} sx={{ padding: "10px", cursor: "pointer", height: "100px" }} onClick={() => { 
+                  new Audio(AudioStore[3].path).play(); 
+                  OnQuizSubmitAnswer(quiz[quizIndex].choice_4) 
+                  }}>
                   <Box sx={{
                     width: "100%", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center"
                     , alignItems: "center", border: "2px solid #7743DB", borderRadius: "10px",backgroundColor:"rgba(119, 67, 219,0.1)","&:hover":{

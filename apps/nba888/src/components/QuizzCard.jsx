@@ -115,6 +115,7 @@ function QuizzCard() {
                 </StyledToolbar>
               </Card>
             </Grid>
+            {/*
             <Grid item>
               <Card
                 sx={{ maxWidth: {xl:500,lg:400}, borderRadius: "16px", height: "32rem" }}
@@ -146,7 +147,7 @@ function QuizzCard() {
                   </CardActions>
                 </StyledToolbar>
               </Card>
-            </Grid>
+            </Grid> */}
             <Grid item >
               <Card
                 sx={{ maxWidth: {xl:500,lg:400}, borderRadius: "16px", height: "32rem" }}
@@ -170,7 +171,7 @@ function QuizzCard() {
                 <StyledToolbar sx={{ width: "100%" }}>
                   <CardActions>
                     
-                      <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz3")}}>
+                      <CustomButtonContained variant="outlined" size="medium" onClick={()=>{navigate("/Quiz2")}}>
                         แบบทดสอบประเมินสไตล์การเล่น
                       </CustomButtonContained>
                   </CardActions>

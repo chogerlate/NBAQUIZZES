@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Layout from "./pages/Layout";
 import QuizResult from "./pages/QuizResult";
 import QuizResultNBA from "./pages/QuizResultNBA";
+import { AudioStore } from "./components/AudioStore";
+import Quiz2 from "./components/Quiz2";
 
 export const UserContext = createContext();
 
@@ -32,6 +34,16 @@ export default function App() {
   const[countdownStartGame, setCountdownStartGame] = useState(5);
   const [isCanStart, setIscanStart] = useState(false);
   const [isPlaying,setIsPlaying] = useState(false);
+  const [isPlayingHomeMusic, setIsPlayingHomeMusic] = useState(true);
+  const [nbaPlayerStat_Physical, setNbaPlayerStat_Physical] = useState([]);
+  const [nbaPlayerStat_SoftSkill, setNbaPlayerStat_SoftSkill] = useState([]);
+  const [predictQuestion, setPredictQuestion] = useState([]);
+  const [userFillPredict, setUserFillPredict] = useState([]);
+  useEffect(()=>{
+    setTimeout(function () {
+      //new Audio(AudioStore[0].path).play();
+  }, 1000);
+  },[])
   return (
     <>
       <UserContext.Provider
@@ -56,7 +68,12 @@ export default function App() {
           toggleSolution, setToggleSolution,
           countdownStartGame, setCountdownStartGame,
           isCanStart, setIscanStart,
-          isPlaying,setIsPlaying
+          isPlaying,setIsPlaying,
+          isPlayingHomeMusic, setIsPlayingHomeMusic,
+          nbaPlayerStat_Physical, setNbaPlayerStat_Physical,
+          nbaPlayerStat_SoftSkill, setNbaPlayerStat_SoftSkill,
+          predictQuestion, setPredictQuestion,
+          userFillPredict, setUserFillPredict
         }}
       >
 
@@ -64,6 +81,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="Quiz1" element={<Quizz1 />} />
+            <Route path="Quiz2" element={<Quiz2/>} />
             <Route path="Quiz1_Result" element={<QuizResult />} />
             <Route path="Quiz2_Result" element={<QuizResultNBA/>} />
             <Route path="*" element={<Nopage />} />

@@ -13,6 +13,11 @@ const AudioStore = [
         id:3,
         name:"LastCountDown",
         path:"/sound/Tead SFX.mp3"
+    },
+    {
+        id:4,
+        name:"Click",
+        path:"/sound/Click.mp3"
     }
 ]
 export {AudioStore};

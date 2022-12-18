@@ -93,6 +93,39 @@ app.get("/quiz_question", (req, res, next) => {
     };
     console.log("SUCCESS");
 });
+
+app.get("/predict_question", (req, res, next) => {
+    db.query(`SELECT * FROM question_analyse`, (err, results) => {
+        //console.log(results);
+        res.json(results);
+    });
+    console.log("SUCCESS");
+    //player_physical_skills
+});
+
+app.get("/player_physical_stat", (req, res, next) => {
+    console.log("HELLO");
+    const position = req.query["position"];
+    console.log(position);
+    db.query(`SELECT * FROM nba_player_physical_skills WHERE position = ${`'${position}'`} `, (err, results) => {
+        //console.log(results);
+        res.json(results);
+    });
+    console.log("SUCCESS");
+    //player_physical_skills
+});
+app.get("/player_softskill_stat", (req, res, next) => {
+    console.log("HELLO");
+    const position = req.query["position"];
+    console.log(position);
+    db.query(`SELECT * FROM nba_player_soft_skill WHERE position = ${`'${position}'`} `, (err, results) => {
+        //console.log(results);
+        res.json(results);
+    });
+    console.log("SUCCESS");
+    //player_physical_skills
+});
+
 app.listen("3008", () => {
     console.log("HELLO SERVER");
 });

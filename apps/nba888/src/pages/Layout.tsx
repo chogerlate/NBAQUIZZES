@@ -9,13 +9,22 @@ import HomeIcon from '@mui/icons-material/Home';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { SetMealOutlined } from "@mui/icons-material";
+import { AudioStore } from "../components/AudioStore";
+import ReactHowler from "react-howler"
 // import bgimg from "../../public/images/bgimg.png";
 
 const Layout = () => {
-  const {playerName,countdownQuizTime,timer,setTimer,quizIndex,timerAnimation,setTimerAnimation,isMute,setIsMute}= useContext(UserContext);
+  const {playerName,countdownQuizTime,timer,setTimer,quizIndex,timerAnimation,setTimerAnimation
+    ,isMute,setIsMute,isPlaying,setIsPlaying,isPlayingHomeMusic, setIsPlayingHomeMusic}= useContext(UserContext);
   const [openAds1,setOpenAds1] = useState(true);
   const [openAds2,setOpenAds2] = useState(true);
   let navigate = useNavigate();
+  const HomeMusic = new ReactHowler(
+    {
+      src: AudioStore[0].path,
+      html5: true
+    }
+  )
   return (
     <Box
       sx={{
