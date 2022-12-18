@@ -21,6 +21,7 @@ import { makeStyles } from "@mui/styles";
 import { UserContext } from "../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const useStyles = makeStyles({
     container: {
         display: "flex",
@@ -35,7 +36,7 @@ const useStyles = makeStyles({
         marginRight: "auto"
     },
     nbaPlayerImage:{
-        width:"350px",
+        width:"65%",
         height:"80%",
         position:"absolute",
         left:"0",
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
         marginLeft:"auto",
         marginRight:"auto",
         top:"60px",
+        opacity:"80%"
     }
 });
 const CustomButtonContained = styled(Button)(({ theme }) => ({
@@ -74,6 +76,8 @@ const QuizResultNBA = () => {
         setScore,
         totalScore,
         setTotalScore,
+        playerResult,setPlayerResult,
+        playerResultStat, setPlayerResultStat
     } = useContext(UserContext);
     useEffect(() => {
         if (!localStorage["playerName"]) {
@@ -88,15 +92,16 @@ const QuizResultNBA = () => {
     }, []);
     const classes = useStyles();
     const chartData = {
-        labels:["Points","Rebounds","Assists","FG%","FG3%","FT%"],
+        //labels:["Points","Rebounds","Assists","FG%","FG3%","FT%"] 1 2 3 4 5 6
+        labels:["","","","","",""],
         datasets:[
         {
-            label: "NBA Player Stats",
-            backgroundColor: "rgba(00,255,00,0.1)",
-            borderColor:"rgba(00,255,00,0.5)",
-            borderWidth:2,
-            
-            data:[4,2,4,3,4,3]
+            label: "",
+            backgroundColor: "rgba(254, 205, 112,0.25)",
+            borderColor:"rgba(254, 205, 112,0.5)",
+            borderWidth:3,  
+            data:[playerResultStat.points*3.57,playerResultStat.rebounds*7.14,playerResultStat.assists*10
+            ,playerResultStat.fg*1.52,playerResultStat.fg3*2.33,playerResultStat.ft*1.1]
         }
         ]
     };
@@ -104,9 +109,21 @@ const QuizResultNBA = () => {
         responsive: true,
     maintainAspectRatio: false,
         scale:{
-            ticks: {beginAtZero : true},
+                ticks: 
+                {
+                    beginAtZero : true,
+                    font:{
+                        size:0,
+                    },
+                },
+                pointLabels:{
+                    font:{
+                        size:100,
+                    }
+                },
+            
         },
-    };
+    }
     return (
         <Box sx={{ width: "100%" }}>
             <Grid
@@ -114,7 +131,7 @@ const QuizResultNBA = () => {
                 className={classes.container}
                 sx={{
                     width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" },
-                    padding: "20px",
+                    padding: "20px 50px 50px 50px",
                     borderRadius: "20px",
                     height: "80vh",
                     position: "relative",
@@ -124,17 +141,33 @@ const QuizResultNBA = () => {
             >
                 <Grid item lg={6} sx={{width:{xl:"100%",lg:"80%",md:"70%"},height:{xl:"90%",lg:"90%"},position:"relative",marginLeft:"auto"
                 ,marginRight:"auto"}}>
-                    <Box sx={{width:"100%",height:"100%"}}>
+                    <Box sx={{width:"100%",height:"90%",position:"relative"}}>
+                    {/*labels:["Points","Rebounds","Assists","FG%","FG3%","FT%"] 1 2 3 4 5 6 */}
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"45%",top:"25px"}}>
+                            Points
+                        </Typography>
+                        <Typography sx={{fontSize:"16px",position:"absolute",top:"25%",right:"0",zIndex:"5"}}>
+                            Rebounds
+                        </Typography>
+                        <Typography sx={{fontSize:"16px",position:"absolute",top:"75%",right:"20px",zIndex:"5"}}>
+                            Assists
+                        </Typography>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"45%",bottom:"0",zIndex:"5"}}>
+                            FG%
+                        </Typography>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"30px",top:"75%",zIndex:"5"}}>
+                            FG3%
+                        </Typography>
+                        <Typography sx={{fontSize:"16px",position:"absolute",left:"30px",top:"25%",zIndex:"5"}}>
+                            FT%
+                        </Typography>
                         <Radar data={chartData} options={options}/>
                     </Box>
-                        <img src="https://i.ibb.co/7V6JMZg/1-Stephen-Curry.png" className={classes.nbaPlayerImage}/>
-                    
-                    
+                        <img src={playerResultStat.image_url} className={classes.nbaPlayerImage}/>
                 </Grid>
-                
                 <Grid item lg={12} sx={{textAlign:"center"}}>
-                    <Typography sx={{fontSize:"20px"}}>คุณคือ</Typography>
-                    <Typography sx={{fontSize:"36px",fontWeight:"600"}}>Stephen Curry</Typography>
+                    <Typography sx={{fontSize:"20px"}}>คุณ {playerName} คือ</Typography>
+                    <Typography sx={{fontSize:"36px",fontWeight:"600"}}>{playerResult}</Typography>
                 </Grid>
                 </Grid>
             {/*/Edit Profile Avatar Card*/}

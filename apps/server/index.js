@@ -16,11 +16,6 @@ const db = mysql.createConnection({
     database: 'd6zyum8s6qpze3jj'
 });
 
-app.get("/nba_player", (req, res, next) => {
-    db.query("SELECT * FROM `nba_player_info`", (err, results) => {
-        res.json(results);
-    })
-});
 
 
 /// Type 1 = general question
@@ -96,6 +91,16 @@ app.get("/quiz_question", (req, res, next) => {
 
 app.get("/predict_question", (req, res, next) => {
     db.query(`SELECT * FROM question_analyse`, (err, results) => {
+        //console.log(results);
+        res.json(results);
+    });
+    console.log("SUCCESS");
+    //player_physical_skills
+});
+
+app.get("/player_info", (req, res, next) => {
+    const position = req.query["position"];
+    db.query(`SELECT * FROM nba_player_info WHERE position = ${`'${position}'`} `, (err, results) => {
         //console.log(results);
         res.json(results);
     });

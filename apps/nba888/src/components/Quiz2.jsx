@@ -71,6 +71,12 @@ const useStyles = makeStyles({
     height:"100%",
     marginLeft:"auto",
     marginRight:"auto"
+  },
+  loadingImage:{
+    width:"75%",
+    height:"100%",
+    marginLeft:"auto",
+    marginRight:"auto"
   }
 })
 const SubmitPredictButton = styled(Button)(({ theme }) => ({
@@ -140,7 +146,11 @@ const Quiz2 = () => {
   nbaPlayerStat_Physical, setNbaPlayerStat_Physical,
   nbaPlayerStat_SoftSkill, setNbaPlayerStat_SoftSkill,
   predictQuestion, setPredictQuestion,
-  userFillPredict, setUserFillPredict
+  userFillPredict, setUserFillPredict,
+  playerResult,setPlayerResult,
+  isAnalyse, setIsAnalyse,
+  playerResultStat, setPlayerResultStat,
+  playerInfo, setPlayerInfo
 
 } = useContext(UserContext)
 const HomeMusic = new ReactHowler(
@@ -177,6 +187,10 @@ const HomeMusic = new ReactHowler(
     axios.get("http://localhost:3008/player_softskill_stat", { params: {position} }).then(response =>{
       console.log(response.data);
       setNbaPlayerStat_SoftSkill(response.data);
+    })
+    axios.get("http://localhost:3008/player_info", { params: {position} }).then(response =>{
+      console.log(response.data);
+      setPlayerInfo(response.data);
     })
   }
   function NextQuiz(){
@@ -251,22 +265,202 @@ const HomeMusic = new ReactHowler(
   const [quizLevel, setQuizLevel] = useState("");
   const [isSelectQuizLevel, setIsSelectQuizLevel] = useState(false);
   const [position, setPosition] = useState("");
-  function SubmitPredict(){
-    console.log(userFillPredict);
+
+  function findMostCommon(arr) {
+    // Create an object to store the count of each string
+    let counts = {};
+  
+    // Loop through the array and increment the count for each string
+    for (let i = 0; i < arr.length; i++) {
+      let str = arr[i];
+      if (counts[str] === undefined) {
+        counts[str] = 1;
+      } else {
+        counts[str]++;
+      }
+    }
+    // Find the string with the highest count
+    let mostCommon = null;
+    let highestCount = 0;
+    for (let str in counts) {
+      if (counts[str] > highestCount) {
+        mostCommon = str;
+        highestCount = counts[str];
+      }
+    }
+  
+    // Return the most common string
+    return mostCommon;
   }
+
+  function SubmitPredict(){
+    //console.log(userFillPredict);
+    var newList=[];
+    if(userFillPredict.length==15){
+    //console.log(userFillPredict);
+    for(var i=0;i<15;i++){
+      //console.log(userFillPredict[i]);
+      console.log(nbaPlayerStat_Physical[0].rebound);
+      if(i==0){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].pass){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==1){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].score_layup){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==2){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].score_shoot_2p){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==3){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].score_shoot_3p){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==4){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].score_shoot_freethrow){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==5){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].dribble){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==6){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].rebound){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==7){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].speed){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==8){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].strength){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==9){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].jump){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==10){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_Physical[j].defensive){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==11){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_SoftSkill[j].leadership){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==12){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_SoftSkill[j].communication){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==13){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_SoftSkill[j].sportmanship){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+      if(i==14){
+        for(var j=0;j<5;j++){
+          if(userFillPredict[i]==nbaPlayerStat_SoftSkill[j].emotional_control){
+            newList.push(nbaPlayerStat_Physical[j].name);
+          }
+        }
+      }
+    }
+    let mostCommonPlayer = findMostCommon(newList);
+    for(var i=0;i<5;i++){
+      if(playerInfo[i].name==mostCommonPlayer){
+        console.log(playerInfo[i]);
+        setPlayerResultStat(playerInfo[i]);
+      }
+    }
+    console.log("Result: " + mostCommonPlayer);
+    setNbaPlayerStat_SoftSkill([]);
+    setUserFillPredict([]);
+    setIsAnalyse(true);
+    setPlayerResult(mostCommonPlayer);
+    setTimeout(function () {
+      setIsAnalyse(false);
+      navigate("/Quiz2_Result")
+    }, 5000);
+  }
+  else{
+    window.alert("กรอกข้อมูลให้ครบ");
+  }
+}
+document.addEventListener("keypress", function(event) {
+  var newList=[];
+  if(event.key=="="){
+    console.log("HELLO");
+    for(var i=0;i<15;i++){
+      newList[i] = 4;
+    }
+    setUserFillPredict(newList);
+  }
+  if(event.key=="-"){
+    console.log("HELLO");
+    for(var i=0;i<15;i++){
+      let random = Math.floor(Math.random() * 4) + 1;
+      newList[i] = random;
+    }
+    setUserFillPredict(newList);
+  }
+});
+
+
   return (
     <Box sx={{ width: "100%" }}>
 
       <Grid container className={classes.container} sx={{
         width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" }, padding: "20px", borderRadius: "20px"
         , height: nbaPlayerStat_SoftSkill.length<0 ? "100%" : "70vh", position: "relative"
-        , boxShadow: "white 0px 4px 8px",overflow:"scroll"
+        , boxShadow: "white 0px 4px 8px",overflow: nbaPlayerStat_SoftSkill.length<=0 ? "none":"scroll"
       }}>
-        {nbaPlayerStat_SoftSkill.length<=0 ?
+        {nbaPlayerStat_SoftSkill.length<=0 && isAnalyse==false?
           <Grid item xl={12} lg={12} md={12} sx={{}}>
             <Typography sx={{ fontSize: "30px", textAlign: "center" }}>คุณสไตล์การเล่นบาสเกตบอลเหมือนใครกันนะ 🏀</Typography>
           </Grid> : ""}
-        {nbaPlayerStat_SoftSkill.length<=0 ?
+        {nbaPlayerStat_SoftSkill.length<=0 && isAnalyse==false?
           <Grid item xl={6} lg={6} md={6} sx={{ borderRight: "2px solid #DCDCDC", padding: "10px", height: "60vh" }}>
             <Typography sx={{ fontSize: "20px", textAlign: "center", color: "#0008C1" ,fontWeight:"600"}}>เล่นเลย!</Typography>
 
@@ -325,7 +519,7 @@ const HomeMusic = new ReactHowler(
             </Box>
 
           </Grid> : ""}
-        {nbaPlayerStat_SoftSkill.length<=0 ?
+        {nbaPlayerStat_SoftSkill.length<=0 && isAnalyse==false ?
           <Grid item xl={6} lg={6} md={6} sx={{ padding: "10px 10px 10px 20px", height: "60vh",position:"relative" }}>
             <Typography sx={{ fontSize: "20px", textAlign: "center", color: "#0008C1",fontWeight:"600"}}>เกี่ยวกับเกม</Typography>
             <Typography sx={{ fontSize: "16px", textAlign: "left", color: "#0008C1", marginTop: "20px" }}>วิธีการเล่น</Typography>
@@ -354,7 +548,7 @@ const HomeMusic = new ReactHowler(
                 </Grid>
           </Grid> : 
           ""}
-        {nbaPlayerStat_SoftSkill.length>0?
+        {nbaPlayerStat_SoftSkill.length>0 && isAnalyse==false ? 
           <Grid item lg={12} sx={{}}>
             <Typography sx={{textAlign:"center",fontSize:"24px"}}>วิเคราะห์สไตล์การเล่นของคุณ</Typography>
             {predictQuestion.map((element,index)=>{
@@ -506,6 +700,13 @@ const HomeMusic = new ReactHowler(
           </Grid>
           
         :""}
+        {isAnalyse==true?
+          <Grid lg={12} sx={{width:"100%",height:"100%"}}>
+            <img src="/images/loading.gif"
+              className={classes.loadingImage}
+            />
+          </Grid>
+        :""}
       </Grid>
       {/*/Edit Profile Avatar Card*/}
       <Dialog
@@ -547,5 +748,4 @@ const HomeMusic = new ReactHowler(
     </Box>
   )
 };
-
 export default Quiz2;

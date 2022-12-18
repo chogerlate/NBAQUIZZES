@@ -39,6 +39,11 @@ export default function App() {
   const [nbaPlayerStat_SoftSkill, setNbaPlayerStat_SoftSkill] = useState([]);
   const [predictQuestion, setPredictQuestion] = useState([]);
   const [userFillPredict, setUserFillPredict] = useState([]);
+  const [playerList, setPlayerList] = useState([]);
+  const [playerResult,setPlayerResult] = useState("");
+  const [isAnalyse, setIsAnalyse] = useState(false);
+  const [playerResultStat, setPlayerResultStat] = useState([]);
+  const [playerInfo, setPlayerInfo] = useState([]);
   useEffect(()=>{
     setTimeout(function () {
       //new Audio(AudioStore[0].path).play();
@@ -73,7 +78,12 @@ export default function App() {
           nbaPlayerStat_Physical, setNbaPlayerStat_Physical,
           nbaPlayerStat_SoftSkill, setNbaPlayerStat_SoftSkill,
           predictQuestion, setPredictQuestion,
-          userFillPredict, setUserFillPredict
+          userFillPredict, setUserFillPredict,
+          playerList, setPlayerList,
+          playerResult,setPlayerResult,
+          isAnalyse, setIsAnalyse,
+          playerResultStat, setPlayerResultStat,
+          playerInfo, setPlayerInfo
         }}
       >
 
