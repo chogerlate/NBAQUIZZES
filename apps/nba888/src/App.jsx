@@ -19,6 +19,7 @@ export default function App() {
   useEffect(() => {
     setPlayerName(window.localStorage.getItem("playerName"));
     setProfileAvatarIndex(window.localStorage.getItem("playerAvatar"));
+    //new Audio(AudioStore[0].path).play();
   }, []);
   const [playerName, setPlayerName] = useState("");
   const [profileAvatarIndex, setProfileAvatarIndex] = useState(0);

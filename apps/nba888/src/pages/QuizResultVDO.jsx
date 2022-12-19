@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import YouTube from "react-youtube";
 import {
     Button,
     styled,
@@ -62,6 +63,18 @@ const CustomButtonContained = styled(Button)(({ theme }) => ({
 
 
 const QuizResultVDO = () => {
+    const videoOptions = {
+        height:'300px',
+        width:'100%',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          rel: 0,
+          showinfo: 0,
+          mute: 0,
+          loop: 1
+        }
+      };
     let navigate = useNavigate();
     const {
         playerName,
@@ -113,8 +126,7 @@ const QuizResultVDO = () => {
                 }}
             >
                 <Box sx={{position:"absolute",left:"20px",top:"20px"}}>
-                    <EmojiEventsIcon sx={{fontSize:"50px",backgroundColor:"#7743DB"
-                    ,padding:"10px",borderRadius:"30px",color:"#FFE15D",cursor:"pointer",}} />
+                
                     
                 </Box>
                 <Grid item lg={12} sx={{ padding: "0 20px" }}>
@@ -265,7 +277,7 @@ const QuizResultVDO = () => {
                         ,borderRadius:"0 0 5px 5px",border:(`2px solid ${userAnswer[index]==1?"#D9F8C4":"#F8C4B4"}`)}}>
                             <Typography>โจทย์: {quiz[index].question}</Typography> 
                             เฉลยคือ {element.choice_answer}
-                        <img src={element.image_url} className={classes.imageQuiz}/></Grid>:""}
+                            <YouTube videoId={(element.video_url_solution).slice(17)} opts={videoOptions} /></Grid>:""}
                         </Grid>
                     )
                     }

@@ -37,7 +37,17 @@ const Layout = () => {
       }}
     >
     
-      {/*{openAds1?<Box sx={{position:"absolute",top:"10px",left:"10px",zIndex:"5"}}>
+      {openAds1?<Box sx={{position:"absolute",top:"10px",left:"10px",zIndex:"5"}}>
+        <Typography sx={{position:"absolute",right:"5px",fontSize:"20px",color:"red",cursor:"pointer"}}
+        onClick={()=>{setOpenAds1(false)}}>X</Typography>
+        <img src={Ads1}/>
+      </Box>:""}
+      {openAds2?<Box sx={{position:"absolute",top:"10px",right:"10px",zIndex:"5"}}>
+      <Typography sx={{position:"absolute",right:"5px",fontSize:"20px",color:"red",cursor:"pointer"}}
+      onClick={()=>{setOpenAds2(false)}}>X</Typography>
+        <img src={Ads2}/>
+    </Box>:""}
+    {/*{openAds1?<Box sx={{position:"absolute",top:"10px",left:"10px",zIndex:"5"}}>
         <Typography sx={{position:"absolute",right:"5px",fontSize:"20px",color:"red",cursor:"pointer"}}
         onClick={()=>{setOpenAds1(false)}}>X</Typography>
         <img src={Ads1}/>
@@ -54,13 +64,7 @@ const Layout = () => {
       onClick={()=>{
         navigate("/");
       }}/>
-      {isMute?<VolumeOffIcon sx={{fontSize:"40px",color:"white",cursor:"pointer",marginLeft:"20px"}} 
-      onClick={()=>{
-        setIsMute(isMute=>!isMute);
-      }}/>:<VolumeUpIcon sx={{fontSize:"40px",color:"white",cursor:"pointer",marginLeft:"20px"}} 
-      onClick={()=>{
-        setIsMute(isMute=>!isMute);
-      }}/>}
+      
       </Box>
       <Typography sx={{fontSize:"30px",position:"absolute",right:"30px",top:"20px",color:"white"}}>{playerName}</Typography>
       <Navbar />

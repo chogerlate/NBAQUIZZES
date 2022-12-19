@@ -112,11 +112,7 @@ const QuizResult = () => {
                     boxShadow: "white 0px 4px 8px",
                 }}
             >
-                <Box sx={{position:"absolute",left:"20px",top:"20px"}}>
-                    <EmojiEventsIcon sx={{fontSize:"50px",backgroundColor:"#7743DB"
-                    ,padding:"10px",borderRadius:"30px",color:"#FFE15D",cursor:"pointer",}} />
-                    
-                </Box>
+                
                 <Grid item lg={12} sx={{ padding: "0 20px" }}>
                     <img src={ProfileAvatarStore[profileAvatarIndex].imageDirectory} className={classes.profileImage} />
                     <Typography

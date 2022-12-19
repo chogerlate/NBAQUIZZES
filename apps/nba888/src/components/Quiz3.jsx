@@ -294,7 +294,7 @@ useEffect(()=>{
 
       <Grid container className={classes.container} sx={{
         width: { xl: "60%", lg: "70%", md: "90%", sm: "90%", xs: "90%" }, padding: "20px", borderRadius: "20px"
-        , height: isCanStart ? "100%" : "75vh", position: "relative"
+        , height: isCanStart ? "100%" : "78vh", position: "relative"
         , boxShadow: "white 0px 4px 8px",textAlign:"center"
       }}>
         {quiz.length < 1 && isCanStart == false ?

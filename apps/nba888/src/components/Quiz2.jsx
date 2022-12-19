@@ -67,13 +67,13 @@ const useStyles = makeStyles({
     },
   },
   nbaPlayerImage:{
-    width:"80%",
-    height:"100%",
+    width:"75%",
+    height:"90%",
     marginLeft:"auto",
     marginRight:"auto"
   },
   loadingImage:{
-    width:"75%",
+    width:"70%",
     height:"100%",
     marginLeft:"auto",
     marginRight:"auto"
@@ -514,6 +514,7 @@ document.addEventListener("keypress", function(event) {
                 
               </Box>:""}
               </Box>
+              
             <Box sx={{ marginTop: "30px" }}>
               <CustomButton variant="outlined" sx={{ padding: "5px 50px",fontSize:"24px"}} onClick={OnStart}>เริ่มเล่น</CustomButton>
             </Box>
