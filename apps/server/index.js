@@ -3,17 +3,18 @@ const app = express();
 const mysql = require("mysql");
 const cors = require("cors"); 
 const { json } = require("express");
+const dotenv = require('dotenv');
 
 app.use(cors());
 app.use(express.json());
 
-
+dotenv.config();
 const db = mysql.createConnection({
-    host: 'o2olb7w3xv09alub.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    port: "3306",
-    user: 'wy26e4zi1loz8tt3',
-    password: 'zqywhctc0gyll5j1',
-    database: 'd6zyum8s6qpze3jj'
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 
